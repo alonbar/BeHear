@@ -48,7 +48,7 @@ public class Manager {
                             obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(1)));
                 }
                 polygonTable.put(new Integer(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08")),
-                        new Polygon(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08"), geometry));
+                        new Polygon(geometry));
             }
             InputStream in;
             BufferedReader reader;
@@ -61,7 +61,7 @@ public class Manager {
                 int polyID = -1;
                 for (Polygon currentPoly: polygonTable.values()) {
                     if (currentPoly.isPointInPolygon(pnt)){
-                        polyID = currentPoly.getId();
+//                        polyID = currentPoly.getId();
                         break;
                     }
                 }
