@@ -90,34 +90,38 @@ public class MainActivity extends FragmentActivity {
                 }
                 try {
                         JSONObject obj = new JSONObject(json);
-                        HashMap<Integer,Polygon> polygonTable = new HashMap<>();
+                        HashMap<Integer, StatArea> statAreaTable = new HashMap<>();
+
                         for(int i = 0; i < obj.getJSONArray("features").length(); i++){
-                                ArrayList<Point> geometry = new ArrayList<>();
+                            ArrayList<Point> geometry = new ArrayList<>();
                                 for (int j = 0; j < obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).length(); j++) {
                                         geometry.add(new Point(obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(0),
                                                 obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(1)));
                                 }
-                                polygonTable.put(new Integer(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08")),
-                                        new Polygon(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08"), geometry));
+                                StatArea objToInsert = new StatArea();
+                                objToInsert.setPolygon(new Polygon(geometry));
+                                    statAreaTable.put(new Integer(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08")), objToInsert);
                         }
+
+                        //read kalpi data
                         InputStream in;
                         BufferedReader reader;
                         String line;
                         in = this.getAssets().open("Kalpi.csv");
                         reader = new BufferedReader(new InputStreamReader(in));
                         ArrayList<String> newKapli = new ArrayList<>();
+
                         while ((line = reader.readLine()) != null) {
                                 Point pnt = new Point(Double.parseDouble(line.split(",")[line.split(",").length -1]), Double.parseDouble(line.split(",")[line.split(",").length -2]));
                                 int polyID = -1;
-                                for (Polygon currentPoly: polygonTable.values()) {
-                                        if (currentPoly.isPointInPolygon(pnt)){
+                                for(Polygon currentPoly: polygonTable.values()) {
+                                        if(currentPoly.isPointInPolygon(pnt)){
                                                 polyID = currentPoly.getId();
                                                 break;
                                         }
                                 }
                                 if (polyID == -1) {
-                                        line += ",NULL";
-                                }
+                                        line += ",NULL";  }
                                 else {
                                         line += "," + Integer.toString(polyID);
                                 }
@@ -127,7 +131,7 @@ public class MainActivity extends FragmentActivity {
 
                 }
                 catch (Exception e){
-                        return;
+                        Log.d("bla", e.getMessage());
                 }
 
                 // Move the camera instantly to hamburg with a zoom of 15.
