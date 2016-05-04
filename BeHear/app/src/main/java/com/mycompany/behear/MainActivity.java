@@ -28,6 +28,7 @@ public class MainActivity extends FragmentActivity {
         private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
+        static HashMap<Integer, StatArea> statAreaTable;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {

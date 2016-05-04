@@ -1,5 +1,6 @@
 package com.mycompany.behear;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -7,12 +8,12 @@ import java.util.HashMap;
  */
 public class StatArea {
     private Polygon polygon;
-    private String party; //key = name of miflaga, value = num of vots
+    private ArrayList<Kalpi> kalpiList; //key = name of miflaga, value = num of vots
     private int socio;
     //ctor
     public StatArea(){
         this.polygon = null;
-        this.party = "";
+        this.kalpiList = null;
         this.socio = -1;
     }
 
@@ -20,7 +21,11 @@ public class StatArea {
         this.polygon = polygon;
     }
 
-    public void setParty(String party){
-        this.party = party;
+    public void setKalpiList(Kalpi kalpi){
+        this.kalpiList.add(kalpi);
     }
+
+    public Polygon getPolygon(){return this.polygon;}
+
+    public  ArrayList<Kalpi> getKalpiList(){return this.kalpiList;}
 }
