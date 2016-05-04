@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BeHear</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="socio">Socio-economic status</string>
+    <string name="crime">Crime rate</string>
+    <string name="votes">Political views</string>
 </resources>
