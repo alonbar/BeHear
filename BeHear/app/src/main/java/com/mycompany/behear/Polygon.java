@@ -8,9 +8,8 @@ import java.util.ArrayList;
 public class Polygon {
 
     private ArrayList<Point> geometryTable;
-    //private int id;
+
     public Polygon(ArrayList<Point> geometry) {
-      //  this.id = id;
         this.geometryTable =  new ArrayList<Point>(geometry);
     }
 
@@ -26,7 +25,4 @@ public class Polygon {
         return result;
     }
 
-    //public int getId(){
-    //    return this.id;
-    //}
 }
