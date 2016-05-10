@@ -65,11 +65,7 @@ public class MainActivity extends FragmentActivity {
                                                            @Override
                                                            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                                                                    Point CurrentLocation = mm.getCurrentCooredinate();
-<<<<<<< HEAD
-                                                                   String alert = "long: " + String.valueOf(CurrentLocation.x) + "lat: " + String.valueOf(CurrentLocation.y) ;
-=======
                                                                    String alert = "long: " + String.valueOf(CurrentLocation.x) + " lat: " + String.valueOf(CurrentLocation.y) ;
->>>>>>> newBracnh
                                                                    Toast.makeText(getApplicationContext(), alert, Toast.LENGTH_LONG).show();
                                                            }
                                                    }
