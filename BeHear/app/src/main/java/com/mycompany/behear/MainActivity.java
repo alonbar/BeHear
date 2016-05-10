@@ -39,11 +39,7 @@ public class MainActivity extends FragmentActivity {
         private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
-<<<<<<< HEAD
-        static HashMap<Integer, StatArea> statAreaTeable;
-=======
         static HashMap<Integer, StatArea> statAreaTable;
->>>>>>> newBracnh
         MapManager mm;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
