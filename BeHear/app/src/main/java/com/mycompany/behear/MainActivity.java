@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity {
         private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
-        static HashMap<Integer, StatArea> statAreaTeable;
+        static HashMap<Integer, StatArea> statAreaTable;
         MapManager mm;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity {
                                                            @Override
                                                            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                                                                    Point CurrentLocation = mm.getCurrentCooredinate();
-                                                                   String alert = "long: " + String.valueOf(CurrentLocation.x) + "lat: " + String.valueOf(CurrentLocation.y) ;
+                                                                   String alert = "long: " + String.valueOf(CurrentLocation.x) + " lat: " + String.valueOf(CurrentLocation.y) ;
                                                                    Toast.makeText(getApplicationContext(), alert, Toast.LENGTH_LONG).show();
                                                            }
                                                    }
