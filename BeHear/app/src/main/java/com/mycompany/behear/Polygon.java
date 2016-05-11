@@ -25,4 +25,8 @@ public class Polygon {
         return result;
     }
 
+    public ArrayList<Point> getGeometryTable(){
+        return this.geometryTable;
+    }
+
 }

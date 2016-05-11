@@ -47,6 +47,7 @@ public class MainActivity extends FragmentActivity {
                 setContentView(R.layout.activity_main);
                 CheckBox satView = (CheckBox)findViewById(R.id.checkbox_votes);
                 mm = new MapManager(getApplicationContext());
+
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                         mm.init();

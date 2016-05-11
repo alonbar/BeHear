@@ -5,10 +5,18 @@ package com.mycompany.behear;
  */
 public class Kalpi {
     private Point point;
-    private String party;
+    private String popolarParty;
 
     public Kalpi(Point point, String party){
         this.point = point;
-        this.party = party;
+        this.popolarParty = party;
+    }
+
+    public Point getPoint(){
+        return this.point;
+    }
+
+    public String getPopolarParty(){
+        return this.popolarParty;
     }
 }

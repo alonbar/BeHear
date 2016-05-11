@@ -1,6 +1,7 @@
 package com.mycompany.behear;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -33,8 +34,9 @@ public class Manager {
             is.close();
 
             json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            Log.d("bla", ex.getMessage());
             return;
         }
         try {
@@ -58,11 +60,11 @@ public class Manager {
             String line;
             in = context.getAssets().open("Kalpi.csv");
             reader = new BufferedReader(new InputStreamReader(in));
-
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] parsedLine = line.split(",");
-                Point pnt = new Point(Double.parseDouble(parsedLine[0]), Double.parseDouble(parsedLine[1]));
-                for (StatArea curStatArea: MainActivity.statAreaTable.values()) {
+                Point pnt = new Point(Double.parseDouble(parsedLine[1]), Double.parseDouble(parsedLine[0]));
+                for(StatArea curStatArea: MainActivity.statAreaTable.values()) {
                     if (curStatArea.getPolygon().isPointInPolygon(pnt)){
                         curStatArea.setKalpiList(new Kalpi(pnt, parsedLine[3]));
                         break;
@@ -71,7 +73,17 @@ public class Manager {
             }
         }
         catch (Exception e){
+            Log.d("bla", e.getMessage());
             return;
         }
+    }
+
+    public StatArea getStatArea(Point point){
+        for(StatArea curStat : MainActivity.statAreaTable.values()){
+            if(curStat.getPolygon().isPointInPolygon(point)){
+                return curStat;
+            }
+        }
+        return null;
     }
 }
