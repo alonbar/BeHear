@@ -1,39 +1,17 @@
 package com.mycompany.behear;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class MainActivity extends FragmentActivity {
         private GoogleMap mMap;
@@ -72,12 +50,6 @@ public class MainActivity extends FragmentActivity {
                                                    }
                 );
 
-
-//                Manager mng = new Manager(getApplicationContext());
-
-
-//                AudioManager am = getApplicatgion().getSystemService(Context.AUDIO_SERVICE);
-//                AudioManager am1 = getApplicationContext().getSystemService(getApplicationContext().AUDIO_SERVICE);
 
 //                try{
 //                        LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -164,9 +136,6 @@ public class MainActivity extends FragmentActivity {
                                 }
                                 return;
                         }
-
-                        // other 'case' lines to check for other
-                        // permissions this app might request
                 }
         }
 
