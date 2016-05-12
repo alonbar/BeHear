@@ -8,8 +8,12 @@ public class Kalpi {
     private String popolarParty;
 
     public Kalpi(Point point, String party){
-        this.point = point;
-        this.popolarParty = party;
+        this.point = new Point(point);
+        this.popolarParty = new String(party);
+    }
+
+    public Kalpi(Kalpi other){
+        this(other.getPoint(), other.getPopolarParty());
     }
 
     public Point getPoint(){

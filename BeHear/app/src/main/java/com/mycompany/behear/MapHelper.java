@@ -40,8 +40,8 @@ public class MapHelper {
                 public void onLocationChanged(Location location) {
                     double lat = location.getLatitude();
                     double lng = location.getLongitude();
-                    currentLocation.x = lat;
-                    currentLocation.y = lng;
+                    currentLocation.setLong(lng);
+                    currentLocation.setLat(lat);
                 }
 
                 @Override

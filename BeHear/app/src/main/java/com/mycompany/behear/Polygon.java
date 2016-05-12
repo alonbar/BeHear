@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Polygon {
 
     private ArrayList<Point> geometryTable;
-
     public Polygon(ArrayList<Point> geometry) {
         this.geometryTable =  new ArrayList<Point>(geometry);
     }
@@ -17,8 +16,8 @@ public class Polygon {
         int i = 0, j = 0;
         boolean result = false;
         for (i = 0, j = geometryTable.size() - 1; i < geometryTable.size(); j = i++) {
-            if ((geometryTable.get(i).y > p.y) != (geometryTable.get(j).y > p.y) &&
-                    (p.x < (geometryTable.get(j).x - geometryTable.get(i).x) * (p.y - geometryTable.get(i).y) / (geometryTable.get(j).y - geometryTable.get(i).y) + geometryTable.get(i).x)) {
+            if ((geometryTable.get(i).getLat() > p.getLat()) != (geometryTable.get(j).getLat()> p.getLat()) &&
+                    (p.getLong()< (geometryTable.get(j).getLong() - geometryTable.get(i).getLong()) * (p.getLat() - geometryTable.get(i).getLat()) / (geometryTable.get(j).getLat()- geometryTable.get(i).getLat()) + geometryTable.get(i).getLong())) {
                 result = !result;
             }
         }

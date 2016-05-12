@@ -59,10 +59,8 @@ public class Manager {
                     geometry.add(new Point(obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(0),
                             obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(1)));
                 }
-                StatArea statObj = new StatArea();
-                statObj.setPolygon(new Polygon(geometry));
                 MainActivity.statAreaTable.put(new Integer(obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08")),
-                        statObj);
+                        new StatArea(new Polygon(geometry), obj.getJSONArray("features").getJSONObject(i).getJSONObject("attributes").getInt("STAT08")));
             }
 
             //set the party data
@@ -72,16 +70,40 @@ public class Manager {
             in = context.getAssets().open("Kalpi.csv");
             reader = new BufferedReader(new InputStreamReader(in));
             reader.readLine();
+            HashMap<Integer, ArrayList<Kalpi>> kapliTable = new HashMap<>();
+
             while ((line = reader.readLine()) != null) {
                 String[] parsedLine = line.split(",");
                 Point pnt = new Point(Double.parseDouble(parsedLine[1]), Double.parseDouble(parsedLine[0]));
-                for(StatArea curStatArea: MainActivity.statAreaTable.values()) {
-                    if (curStatArea.getPolygon().isPointInPolygon(pnt)){
-                        curStatArea.setKalpiList(new Kalpi(pnt, parsedLine[3]));
-                        break;
-                    }
+                if (parsedLine[2].equals("NULL"))
+                    continue;
+                if (kapliTable.get(Integer.valueOf(parsedLine[2])) == null) {
+                    ArrayList<Kalpi> kalpiList = new ArrayList<>();
+                    kalpiList.add(new Kalpi(pnt, parsedLine[3]));
+                    kapliTable.put(Integer.valueOf(parsedLine[2]), kalpiList);
+                }
+                else {
+                    kapliTable.get(Integer.valueOf(parsedLine[2])).add(new Kalpi(pnt, parsedLine[3]));
                 }
             }
+
+            for(Integer statNumber: kapliTable.keySet()) {
+                StatArea area = MainActivity.statAreaTable.get(statNumber);
+                if (area != null) {
+                    area.setKapliList(kapliTable.get(statNumber));
+                }
+            }
+
+//            while ((line = reader.readLine()) != null) {
+//                String[] parsedLine = line.split(",");
+//                Point pnt = new Point(Double.parseDouble(parsedLine[1]), Double.parseDouble(parsedLine[0]));
+//                for(StatArea curStatArea: MainActivity.statAreaTable.values()) {
+//                    if (curStatArea.getPolygon().isPointInPolygon(pnt)){
+//                        curStatArea.setKalpiList(new Kalpi(pnt, parsedLine[3]));
+//                        break;
+//                    }
+//                }
+//            }
         }
         catch (Exception e){
             Log.d("bla", e.getMessage());
@@ -90,14 +112,15 @@ public class Manager {
     }
 
 
-    public StatArea getStatArea(Point point){
-        for(StatArea curStat : MainActivity.statAreaTable.values()){
-            if(curStat.getPolygon().isPointInPolygon(point)){
+    private StatArea getStatArea(Point point) {
+        Point point2 = new Point(35.210596,31.779684);
+        for (StatArea curStat : MainActivity.statAreaTable.values()) {
+            if (curStat.getPolygon().isPointInPolygon(point2)) {
                 return curStat;
             }
         }
         return null;
-
+    }
 
     public Point getCurrentCoordinate() {
         return this.mapHelper.getCurrentCooredinate();
@@ -105,8 +128,10 @@ public class Manager {
 
     public void startLifeCycle() {
         Point pnt = getCurrentCoordinate();
-
-
+        StatArea curretArea = this.getStatArea(pnt);
+        if (curretArea != null) {
+            String currentPart = curretArea.getClosestKalpi(pnt);
+        }
 
     }
 }

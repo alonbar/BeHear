@@ -29,7 +29,7 @@
         map:mapType="normal"/>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:paddingLeft="16dp"
@@ -40,13 +40,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/socio"
-            />
+            android:layout_below="@+id/checkbox_crime"
+            android:layout_toRightOf="@+id/checkbox_votes"
+            android:layout_toEndOf="@+id/checkbox_votes" />
         <CheckBox android:id="@+id/checkbox_crime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/crime"
-            android:layout_toRightOf="@+id/checkbox_socio"
-            />
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/checkbox_socio"
+            android:layout_alignEnd="@+id/checkbox_socio" />
         <CheckBox android:id="@+id/checkbox_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +64,9 @@
             android:layout_height="wrap_content"
             android:text="aaa"
             android:layout_weight="0.13"
-            />
+            android:layout_above="@+id/checkbox_socio"
+            android:layout_toLeftOf="@+id/checkbox_socio"
+            android:layout_toStartOf="@+id/checkbox_socio" />
     </RelativeLayout>
 
 </LinearLayout>
