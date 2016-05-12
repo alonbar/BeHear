@@ -18,14 +18,14 @@ import com.google.android.gms.maps.GoogleMap;
 
 import java.util.jar.Manifest;
 
-public class MapManager {
+public class MapHelper {
 
     private Context context;
     private LocationManager locationManager;
     LocationListener locationListener;
 
     Point currentLocation;
-    public MapManager(Context context) {
+    public MapHelper(Context context) {
         this.context = context;
 
     }

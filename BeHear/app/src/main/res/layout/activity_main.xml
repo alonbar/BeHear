@@ -11,19 +11,22 @@
     tools:context="com.mycompany.behear.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/logo"
+        android:layout_width="174dp"
         android:layout_height="wrap_content"
-        android:text="BeHear" />
+        android:text="BeHear"
+        android:layout_weight="0.13"
+        />
 
 
-    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/map"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--map:mapType="normal"/>-->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        map:mapType="normal"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -37,19 +40,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/socio"
-            android:onClick="onCheckboxClicked"/>
+            />
         <CheckBox android:id="@+id/checkbox_crime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/crime"
             android:layout_toRightOf="@+id/checkbox_socio"
-            android:onClick="onCheckboxClicked"/>
+            />
         <CheckBox android:id="@+id/checkbox_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/votes"
             android:layout_below="@+id/checkbox_crime"
-            android:layout_centerHorizontal="true"
+
+            />
+
+        <TextView
+            android:id="@+id/logo2"
+            android:layout_width="174dp"
+            android:layout_height="wrap_content"
+            android:text="aaa"
+            android:layout_weight="0.13"
             />
     </RelativeLayout>
 

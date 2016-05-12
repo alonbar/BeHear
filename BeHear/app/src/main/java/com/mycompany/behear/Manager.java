@@ -17,6 +17,17 @@ import com.mycompany.behear.MainActivity;
  */
 public class Manager {
 
+    Context context;
+    MapHelper mapHelper;
+    SoundManager soundManager;
+
+    public Manager(Context context) {
+        mapHelper = new MapHelper(context);
+        mapHelper.init();
+        soundManager = new SoundManager(context);
+
+    }
+
     public static void BeHearInit(Context context) {
         String json = null;
         MainActivity.statAreaTable = new HashMap<>();
@@ -78,6 +89,7 @@ public class Manager {
         }
     }
 
+
     public StatArea getStatArea(Point point){
         for(StatArea curStat : MainActivity.statAreaTable.values()){
             if(curStat.getPolygon().isPointInPolygon(point)){
@@ -85,5 +97,16 @@ public class Manager {
             }
         }
         return null;
+
+
+    public Point getCurrentCoordinate() {
+        return this.mapHelper.getCurrentCooredinate();
+    }
+
+    public void startLifeCycle() {
+        Point pnt = getCurrentCoordinate();
+
+
+
     }
 }

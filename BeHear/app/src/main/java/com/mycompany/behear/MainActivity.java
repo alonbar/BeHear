@@ -2,35 +2,39 @@ package com.mycompany.behear;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.HashMap;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity  implements OnMapReadyCallback {
         private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
         static HashMap<Integer, StatArea> statAreaTable;
-        MapManager mm;
+        Manager manager = new Manager(getApplicationContext());
+        MapHelper mapHelper;
+        boolean activityFlag;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
                 CheckBox satView = (CheckBox)findViewById(R.id.checkbox_votes);
-                mm = new MapManager(getApplicationContext());
-
+                activityFlag = true;
+                mapHelper = new MapHelper(getApplicationContext());
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                        mm.init();
-                        Point pnt = mm.getCurrentCooredinate();
-                        int a = 0 ;
+                        mapHelper.init();
 
                 }
                 else {
@@ -43,13 +47,16 @@ public class MainActivity extends FragmentActivity {
 
                                                            @Override
                                                            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                                                                   Point CurrentLocation = mm.getCurrentCooredinate();
+                                                                   Point CurrentLocation = mapHelper.getCurrentCooredinate();
                                                                    String alert = "long: " + String.valueOf(CurrentLocation.x) + " lat: " + String.valueOf(CurrentLocation.y) ;
                                                                    Toast.makeText(getApplicationContext(), alert, Toast.LENGTH_LONG).show();
                                                            }
                                                    }
                 );
 
+
+                Daemon d = new Daemon();
+                d.execute(null, null, null);
 
 //                try{
 //                        LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -125,7 +132,7 @@ public class MainActivity extends FragmentActivity {
                                 // If request is cancelled, the result arrays are empty.
                                 if (grantResults.length > 0
                                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                                        mm.init();
+                                        mapHelper.init();
                                         // permission was granted, yay! Do the
                                         // contacts-related task you need to do.
 
@@ -139,4 +146,58 @@ public class MainActivity extends FragmentActivity {
                 }
         }
 
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+
+        }
+
+        private class Daemon extends AsyncTask<String, Point, String> {
+
+                @Override
+                protected String doInBackground(String... params) {
+                        while(activityFlag = true){
+                                Point pnt = manager.getCurrentCoordinate();
+                                publishProgress(pnt);
+                                manager.startLifeCycle();
+
+
+                                try {
+                                        Thread.sleep(1000);
+                                }
+                                catch (Exception e) {
+                                        return e.getMessage();
+                                }
+                        }
+
+                        try {
+
+                                Thread.sleep(7000);
+                        }
+                        catch (Exception e) {
+                                return "sf";
+                        }
+
+                        return "Executed";
+                }
+
+                @Override
+                protected void onPostExecute(String result) {
+                        TextView txt = (TextView) findViewById(R.id.logo2);
+                        txt.setText("Executed"); // txt.setText(result);
+                        // might want to change "executed" for the returned string passed
+                        // into onPostExecute() but that is upto you
+                }
+
+                @Override
+                protected void onPreExecute() {}
+
+                @Override
+                protected void onProgressUpdate(Point... values) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(values[0].y, values[0].x), 15));
+                        System.out.println(values[0]);
+
+                }
+
+        }
 }
+
