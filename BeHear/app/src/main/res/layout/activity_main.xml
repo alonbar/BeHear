@@ -34,39 +34,40 @@
         android:baselineAligned="false"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"/>
 
         <CheckBox android:id="@+id/checkbox_socio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/socio"
-            android:layout_below="@+id/checkbox_crime"
+            android:layout_below="@+id/checkbox_edu"
             android:layout_toRightOf="@+id/checkbox_votes"
             android:layout_toEndOf="@+id/checkbox_votes" />
-        <CheckBox android:id="@+id/checkbox_crime"
+
+        <CheckBox android:id="@+id/checkbox_edu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/crime"
+            android:text="@string/edu"
             android:layout_centerVertical="true"
             android:layout_alignRight="@+id/checkbox_socio"
             android:layout_alignEnd="@+id/checkbox_socio" />
+
         <CheckBox android:id="@+id/checkbox_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/votes"
-            android:layout_below="@+id/checkbox_crime"
+            android:layout_below="@+id/checkbox_edu"
 
             />
 
-        <TextView
-            android:id="@+id/logo2"
-            android:layout_width="174dp"
+        <CheckBox android:id="@+id/offlineMode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="aaa"
-            android:layout_weight="0.13"
+            android:text="@string/offlineMode"
+            android:layout_below="@+id/checkbox_edu"
             android:layout_above="@+id/checkbox_socio"
             android:layout_toLeftOf="@+id/checkbox_socio"
-            android:layout_toStartOf="@+id/checkbox_socio" />
-    </RelativeLayout>
+            android:layout_toStartOf="@+id/checkbox_socio"
+            />
 
 </LinearLayout>

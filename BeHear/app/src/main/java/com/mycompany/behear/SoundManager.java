@@ -13,10 +13,15 @@ public class SoundManager {
     Context context;
     //pool of different sounds
     SoundPool soundPool;
-    Parameters lastLevel;
+    String [] partisList = {"G","S" ,"M","A","K", "T", "V","L"};
+    static HashMap<String, Integer> partiesHashTable;
     public SoundManager(Context context_) {
         this.context = context_;
         this.soundPool = new SoundPool(context_);
+        partiesHashTable = new HashMap<>();
+        for (int i = 0; i < partisList.length; i++) {
+            partiesHashTable.put(partisList[i], partisList[i].hashCode());
+        }
     }
 
     //If the sound is already played, then it will just let it continue.
@@ -57,7 +62,9 @@ public class SoundManager {
     //stopping a sound.
     public boolean stopSound (Parameters param, int level) {
         //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
-        this.soundPool.stopSound(param, level);
+        if (soundPool.isPlaying(param, level)) {
+            this.soundPool.stopSound(param, level);
+        }
         return true;
     }
 

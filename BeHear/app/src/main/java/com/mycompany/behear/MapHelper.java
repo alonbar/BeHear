@@ -69,7 +69,9 @@ public class MapHelper {
 
             Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (current == null){
-                return new Point (-74.005941, 40.712784);
+
+//                return new Point (35.211183, 31.771384);
+                return new Point (35.20999, 31.770876);
             }
             else {
                 Point pnt = new Point(current.getLongitude(), current.getLatitude());

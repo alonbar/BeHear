@@ -20,7 +20,6 @@ public class SoundPool {
 
     public void add(Parameters param, int level) {
         if (this.getMedia(param, level) == null) {
-            int resource = this.translateToResouceId(param,level);
             this.context.getSystemService(Context.AUDIO_SERVICE);
             MediaPlayer mp = MediaPlayer.create(this.context, translateToResouceId(param, level));
             pool.put(Pair.create(param, level), mp);
@@ -38,9 +37,10 @@ public class SoundPool {
 
     public void stopSound(Parameters param, int level) {
         if (this.getMedia(param, level) == null) {
-            this.add(param, level);
+            return;
         }
-        this.pool.get(Pair.create(param,level)).stop();
+        this.getMedia(param, level).pause();
+        this.getMedia(param, level).seekTo(0);
     }
 
     MediaPlayer getMedia(Parameters param, int level) {
@@ -71,16 +71,44 @@ public class SoundPool {
 
     private int translateToResouceId(Parameters param, int level){
         if (param.equals(Parameters.politics)) {
-            switch (level) {
-                case 0:
-                    return R.raw.zehava;
-                case 1:
-                    return R.raw.benet;
-                case 2:
-                    return R.raw.shas;
+            if (SoundManager.partiesHashTable.get("G") == level) {
+                return R.raw.g_yahadot_hatorah;
+            } else if (SoundManager.partiesHashTable.get("S") == level) {
+                return R.raw.s_shas;
+            } else if (SoundManager.partiesHashTable.get("M") == level) {
+                return R.raw.m_likud;
+            } else if (SoundManager.partiesHashTable.get("A") == level) {
+                return R.raw.a_machane;
+            } else if (SoundManager.partiesHashTable.get("K") == level) {
+                return R.raw.k_yachad;
+            } else if (SoundManager.partiesHashTable.get("T") == level) {
+                return R.raw.t_bait_yehudi;
+            } else if (SoundManager.partiesHashTable.get("V") == level) {
+                return R.raw.a_machane;
+            } else if (SoundManager.partiesHashTable.get("L") == level) {
+                return R.raw.l_israel_beyteno;
             }
-
+            else {
+                System.out.print("shouldn't happen");
+            }
         }
-        return R.raw.shas;
+        else if (param.equals(Parameters.econ)) {
+            if (level == 1) {
+                return R.raw.econ_1_laughing;
+            }
+            else if (level == 2) {
+                return R.raw.econ_2;
+            }
+            else if (level == 3) {
+                return R.raw.econ_3;
+            }
+            else if (level == 4) {
+                return  R.raw.econ_4;
+            }
+            else if (level == 5) {
+                return R.raw.econ_5;
+            }
+        }
+        return 0;
     }
 }

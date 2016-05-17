@@ -20,6 +20,9 @@ public class Manager {
     Context context;
     MapHelper mapHelper;
     SoundManager soundManager;
+    static boolean votesBoxFlag;
+    static boolean econBoxFlag;
+    static boolean eduBoxFlag;
 
     public Manager(Context context) {
         mapHelper = new MapHelper(context);
@@ -93,17 +96,6 @@ public class Manager {
                     area.setKapliList(kapliTable.get(statNumber));
                 }
             }
-
-//            while ((line = reader.readLine()) != null) {
-//                String[] parsedLine = line.split(",");
-//                Point pnt = new Point(Double.parseDouble(parsedLine[1]), Double.parseDouble(parsedLine[0]));
-//                for(StatArea curStatArea: MainActivity.statAreaTable.values()) {
-//                    if (curStatArea.getPolygon().isPointInPolygon(pnt)){
-//                        curStatArea.setKalpiList(new Kalpi(pnt, parsedLine[3]));
-//                        break;
-//                    }
-//                }
-//            }
         }
         catch (Exception e){
             Log.d("bla", e.getMessage());
@@ -113,9 +105,8 @@ public class Manager {
 
 
     private StatArea getStatArea(Point point) {
-        Point point2 = new Point(35.210596,31.779684);
         for (StatArea curStat : MainActivity.statAreaTable.values()) {
-            if (curStat.getPolygon().isPointInPolygon(point2)) {
+            if (curStat.getPolygon().isPointInPolygon(point)) {
                 return curStat;
             }
         }
@@ -126,12 +117,22 @@ public class Manager {
         return this.mapHelper.getCurrentCooredinate();
     }
 
-    public void startLifeCycle() {
-        Point pnt = getCurrentCoordinate();
+    public void startLifeCycle(Point pnt) {
         StatArea curretArea = this.getStatArea(pnt);
         if (curretArea != null) {
-            String currentPart = curretArea.getClosestKalpi(pnt);
+            if (votesBoxFlag) {
+                String currentParty = curretArea.getClosestKalpi(pnt);
+                if (currentParty.equals("")) {
+                    return;
+                }
+                soundManager.playSound(Parameters.politics, currentParty.hashCode());
+            } else {
+                String currentParty = curretArea.getClosestKalpi(pnt);
+                if (currentParty.equals("")) {
+                    return;
+                }
+                soundManager.stopSound(Parameters.politics, currentParty.hashCode());
+            }
         }
-
     }
 }
