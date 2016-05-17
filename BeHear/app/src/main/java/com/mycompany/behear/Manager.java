@@ -56,7 +56,7 @@ public class Manager {
         try {
             JSONObject obj = new JSONObject(json);
 
-            for(int i = 0; i < obj.getJSONArray("features").length(); i++){
+            for (int i = 0; i < obj.getJSONArray("features").length(); i++) {
                 ArrayList<Point> geometry = new ArrayList<>();
                 for (int j = 0; j < obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).length(); j++) {
                     geometry.add(new Point(obj.getJSONArray("features").getJSONObject(i).getJSONObject("geometry").getJSONArray("rings").getJSONArray(0).getJSONArray(j).getDouble(0),
@@ -84,23 +84,37 @@ public class Manager {
                     ArrayList<Kalpi> kalpiList = new ArrayList<>();
                     kalpiList.add(new Kalpi(pnt, parsedLine[3]));
                     kapliTable.put(Integer.valueOf(parsedLine[2]), kalpiList);
-                }
-                else {
+                } else {
                     kapliTable.get(Integer.valueOf(parsedLine[2])).add(new Kalpi(pnt, parsedLine[3]));
                 }
             }
 
-            for(Integer statNumber: kapliTable.keySet()) {
+            for (Integer statNumber : kapliTable.keySet()) {
                 StatArea area = MainActivity.statAreaTable.get(statNumber);
                 if (area != null) {
                     area.setKapliList(kapliTable.get(statNumber));
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Log.d("bla", e.getMessage());
             return;
         }
+
+        try {
+            InputStream in;
+            BufferedReader reader;
+            String line;
+            in = context.getAssets().open("economy.csv");
+            reader = new BufferedReader(new InputStreamReader(in));
+            while ((line = reader.readLine()) != null) {
+                String[] parsedLine = line.split(",");
+                MainActivity.statAreaTable.get(Integer.valueOf(parsedLine[0])).setEcon(Integer.valueOf(parsedLine[1]));
+            }
+        } catch (Exception ex) {
+            Log.d("Exception: ", ex.getMessage());
+            return;
+        }
+
     }
 
 
@@ -119,20 +133,38 @@ public class Manager {
 
     public void startLifeCycle(Point pnt) {
         StatArea curretArea = this.getStatArea(pnt);
+        int currentEconStatus = curretArea.getEcon();
+        String currentParty = curretArea.getClosestKalpi(pnt);
         if (curretArea != null) {
             if (votesBoxFlag) {
-                String currentParty = curretArea.getClosestKalpi(pnt);
+                currentParty = curretArea.getClosestKalpi(pnt);
                 if (currentParty.equals("")) {
                     return;
                 }
                 soundManager.playSound(Parameters.politics, currentParty.hashCode());
             } else {
-                String currentParty = curretArea.getClosestKalpi(pnt);
                 if (currentParty.equals("")) {
                     return;
                 }
                 soundManager.stopSound(Parameters.politics, currentParty.hashCode());
             }
+
+            int newStatus = 0;
+            if (currentEconStatus <= 3) {
+                newStatus = 4;
+            } else if (currentEconStatus >= 4 && currentEconStatus <= 7) {
+                newStatus = 3;
+            } else if (currentEconStatus >= 8 && currentEconStatus <= 11) {
+                newStatus = 2;
+            } else if (currentEconStatus >= 12 && currentEconStatus <= 15) {
+                newStatus = 1;
+            } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
+                newStatus = 0;
+            }
+                if (econBoxFlag)
+                    soundManager.playSound(Parameters.econ, newStatus);
+                else
+                    soundManager.stopSound(Parameters.econ, newStatus);
         }
     }
 }

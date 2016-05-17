@@ -88,5 +88,13 @@ public class StatArea {
         return (rad * 180.0 / Math.PI);
     }
 
+    public void setEcon(int status) {
+        this.socio = status;
+    }
+
+    public int getEcon(){
+        return this.socio;
+    }
+
 
 }

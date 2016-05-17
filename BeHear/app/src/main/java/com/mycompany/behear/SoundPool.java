@@ -93,19 +93,21 @@ public class SoundPool {
             }
         }
         else if (param.equals(Parameters.econ)) {
-            if (level == 1) {
-                return R.raw.econ_1_laughing;
+            //laughing
+            if (level == 0) {
+                return R.raw.econ_1;
             }
-            else if (level == 2) {
+            else if (level == 1) {
                 return R.raw.econ_2;
             }
-            else if (level == 3) {
+            else if (level == 2) {
                 return R.raw.econ_3;
             }
-            else if (level == 4) {
+            else if (level == 3) {
                 return  R.raw.econ_4;
             }
-            else if (level == 5) {
+            //carying
+            else if (level == 4) {
                 return R.raw.econ_5;
             }
         }
