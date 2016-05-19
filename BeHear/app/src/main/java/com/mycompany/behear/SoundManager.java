@@ -59,12 +59,20 @@ public class SoundManager {
         return true;
     }
 
-    //stopping a sound.
+    //stopping a sound with a param and lavel.
     public boolean stopSound (Parameters param, int level) {
         //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
         if (soundPool.isPlaying(param, level)) {
             this.soundPool.stopSound(param, level);
         }
+        return true;
+    }
+
+    //stopping a sound with only param.
+    public boolean stopSound (Parameters param) {
+        //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
+            this.soundPool.stopSound(param);
+
         return true;
     }
 

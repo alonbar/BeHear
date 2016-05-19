@@ -36,7 +36,7 @@ public class MapHelper {
             this.locationManager = (LocationManager)this.context.getSystemService(Context.LOCATION_SERVICE);
             this.currentLocation = new Point(0,0);
             this.locationListener = new LocationListener() {
-                @Override
+                    @Override
                 public void onLocationChanged(Location location) {
                     double lat = location.getLatitude();
                     double lng = location.getLongitude();

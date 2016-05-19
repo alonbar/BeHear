@@ -137,34 +137,30 @@ public class Manager {
         String currentParty = curretArea.getClosestKalpi(pnt);
         if (curretArea != null) {
             if (votesBoxFlag) {
-                currentParty = curretArea.getClosestKalpi(pnt);
-                if (currentParty.equals("")) {
-                    return;
+                if (!currentParty.equals("")) {
+                    soundManager.playSound(Parameters.politics, currentParty.hashCode());
                 }
-                soundManager.playSound(Parameters.politics, currentParty.hashCode());
             } else {
-                if (currentParty.equals("")) {
-                    return;
+                soundManager.stopSound(Parameters.politics);
+            }
+            if (currentEconStatus != -1) {
+                int newStatus = 0;
+                if (currentEconStatus <= 3) {
+                    newStatus = 4;
+                } else if (currentEconStatus >= 4 && currentEconStatus <= 7) {
+                    newStatus = 3;
+                } else if (currentEconStatus >= 8 && currentEconStatus <= 11) {
+                    newStatus = 2;
+                } else if (currentEconStatus >= 12 && currentEconStatus <= 15) {
+                    newStatus = 1;
+                } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
+                    newStatus = 0;
                 }
-                soundManager.stopSound(Parameters.politics, currentParty.hashCode());
-            }
-
-            int newStatus = 0;
-            if (currentEconStatus <= 3) {
-                newStatus = 4;
-            } else if (currentEconStatus >= 4 && currentEconStatus <= 7) {
-                newStatus = 3;
-            } else if (currentEconStatus >= 8 && currentEconStatus <= 11) {
-                newStatus = 2;
-            } else if (currentEconStatus >= 12 && currentEconStatus <= 15) {
-                newStatus = 1;
-            } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
-                newStatus = 0;
-            }
                 if (econBoxFlag)
                     soundManager.playSound(Parameters.econ, newStatus);
                 else
-                    soundManager.stopSound(Parameters.econ, newStatus);
+                    soundManager.stopSound(Parameters.econ);
+            }
         }
     }
 }

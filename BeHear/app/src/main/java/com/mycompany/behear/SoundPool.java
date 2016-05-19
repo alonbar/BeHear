@@ -43,6 +43,15 @@ public class SoundPool {
         this.getMedia(param, level).seekTo(0);
     }
 
+    public void stopSound(Parameters param) {
+        for (Pair<Parameters, Integer> key: this.pool.keySet()) {
+            if (key.first.equals(param)) {
+                this.getMedia(param, key.second).pause();
+                this.getMedia(param, key.second).seekTo(0);
+            }
+        }
+    }
+
     MediaPlayer getMedia(Parameters param, int level) {
         return pool.get(Pair.create(param, level));
     }
