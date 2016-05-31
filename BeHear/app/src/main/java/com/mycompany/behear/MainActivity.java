@@ -123,19 +123,42 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         }
                 });
 
-                mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
                         @Override
-                        public void onMapLongClick(LatLng latLng) {
-                                if (offlineModeMarker != null) {
-                                        offlineModeMarker.remove();
+                        public void onMapClick(LatLng latLng) {
+                                if (offlineModeBox.isChecked()) {
+                                        if (offlineModeMarker != null) {
+                                                offlineModeMarker.remove();
+                                        }
+                                        offlineModeMarker = mMap.addMarker(new MarkerOptions()
+                                                .position(latLng)
+                                                .draggable(true)
+                                                .title("Now playing"));
+
+                                        offlineMarkerLatLng = offlineModeMarker.getPosition();
                                 }
-                                offlineModeMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("offline travel"));
-                                offlineMarkerLatLng = offlineModeMarker.getPosition();
                         }
                 });
 
+mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
+
+                                     @Override
+                                     public void onMarkerDragStart(Marker marker) {
+
+                                     }
+
+                                     @Override
+                                     public void onMarkerDrag(Marker marker) {
+                                             offlineMarkerLatLng = offlineModeMarker.getPosition();
+                                     }
+
+                                     @Override
+                                     public void onMarkerDragEnd(Marker marker) {
+                                             offlineMarkerLatLng = offlineModeMarker.getPosition();
+                                     }
+                             });
                 Daemon d = new Daemon();
                 d.execute();
 
