@@ -136,30 +136,39 @@ public class Manager {
         int currentEconStatus = curretArea.getEcon();
         String currentParty = curretArea.getClosestKalpi(pnt);
         if (curretArea != null) {
-            if (votesBoxFlag) {
-                if (!currentParty.equals("")) {
-                    soundManager.playSound(Parameters.politics, currentParty.hashCode());
-                }
-            } else {
-                soundManager.stopSound(Parameters.politics);
+
+            if (econBoxFlag && votesBoxFlag && !currentParty.equals("")) {
+                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
             }
-            if (currentEconStatus != -1) {
-                int newStatus = 0;
-                if (currentEconStatus <= 3) {
-                    newStatus = 4;
-                } else if (currentEconStatus >= 4 && currentEconStatus <= 7) {
-                    newStatus = 3;
-                } else if (currentEconStatus >= 8 && currentEconStatus <= 11) {
-                    newStatus = 2;
-                } else if (currentEconStatus >= 12 && currentEconStatus <= 15) {
-                    newStatus = 1;
-                } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
-                    newStatus = 0;
+            else if (eduBoxFlag && votesBoxFlag && !currentParty.equals("")) {
+                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
+            }
+            else {
+                if (votesBoxFlag) {
+                    if (!currentParty.equals("")) {
+                        soundManager.playSound(Parameters.politics, currentParty.hashCode());
+                    }
+                } else {
+                    soundManager.stopSound(Parameters.politics);
                 }
-                if (econBoxFlag)
-                    soundManager.playSound(Parameters.econ, newStatus);
-                else
-                    soundManager.stopSound(Parameters.econ);
+                if (currentEconStatus != -1) {
+                    int newStatus = 0;
+                    if (currentEconStatus <= 3) {
+                        newStatus = 4;
+                    } else if (currentEconStatus >= 4 && currentEconStatus <= 7) {
+                        newStatus = 3;
+                    } else if (currentEconStatus >= 8 && currentEconStatus <= 11) {
+                        newStatus = 2;
+                    } else if (currentEconStatus >= 12 && currentEconStatus <= 15) {
+                        newStatus = 1;
+                    } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
+                        newStatus = 0;
+                    }
+                    if (econBoxFlag)
+                        soundManager.playSound(Parameters.econ, newStatus);
+                    else
+                        soundManager.stopSound(Parameters.econ);
+                }
             }
         }
     }

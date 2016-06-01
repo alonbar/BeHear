@@ -27,7 +27,6 @@ public class SoundManager {
     //If the sound is already played, then it will just let it continue.
     //If the sound is not played but another sound ot the same category is played (i.e different level) it will stop the sound and start it with the new level.
     public boolean playSound(Parameters param, int level) {
-
         if (this.isPlaying(param, level)) {
             return false;
         }
@@ -40,6 +39,14 @@ public class SoundManager {
             return true;
         }
     }
+
+    public boolean playSound(Parameters param, int level, boolean enforce) {
+        if (enforce)
+            this.stopAllSounds();
+        return playSound(param,level);
+    }
+
+
 
     //Checking if a certain sound is played./
     private boolean isPlaying(Parameters param, int level) {
@@ -74,6 +81,12 @@ public class SoundManager {
             this.soundPool.stopSound(param);
 
         return true;
+    }
+
+    public void stopAllSounds() {
+        for (Parameters curret: Parameters.values()) {
+            this.stopSound(curret);
+        }
     }
 
 }
