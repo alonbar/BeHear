@@ -19,7 +19,7 @@ public class Manager {
 
     Context context;
     MapHelper mapHelper;
-    SoundManager soundManager;
+    public SoundManager soundManager;
     static boolean votesBoxFlag;
     static boolean econBoxFlag;
     static boolean eduBoxFlag;
@@ -104,12 +104,32 @@ public class Manager {
             InputStream in;
             BufferedReader reader;
             String line;
+
+            //getting econ status
             in = context.getAssets().open("economy.csv");
             reader = new BufferedReader(new InputStreamReader(in));
             while ((line = reader.readLine()) != null) {
                 String[] parsedLine = line.split(",");
                 MainActivity.statAreaTable.get(Integer.valueOf(parsedLine[0])).setEcon(Integer.valueOf(parsedLine[1]));
             }
+
+            //getting education status
+            in = context.getAssets().open("edu.csv");
+            reader = new BufferedReader(new InputStreamReader(in));
+            line = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                line = line.replaceAll(",,," , ",***,***,");
+                line = line.replaceAll(",," , ",***,");
+                String[] parsedLine = line.split(",");
+                if (MainActivity.statAreaTable.containsKey(Integer.valueOf(parsedLine[0])) && !(parsedLine[1].equals("***"))) {
+                    MainActivity.statAreaTable.get(Integer.valueOf(parsedLine[0])).setUniGraduate(Double.valueOf(parsedLine[1]));
+                }
+                if (MainActivity.statAreaTable.containsKey(Integer.valueOf(parsedLine[0])) && !(parsedLine[2].equals("***"))) {
+                    MainActivity.statAreaTable.get(Integer.valueOf(parsedLine[0])).setSchoolGraduate(Double.valueOf(parsedLine[2]));
+                }
+            }
+
+
         } catch (Exception ex) {
             Log.d("Exception: ", ex.getMessage());
             return;
@@ -134,24 +154,17 @@ public class Manager {
     public void startLifeCycle(Point pnt) {
         StatArea curretArea = this.getStatArea(pnt);
         int currentEconStatus = curretArea.getEcon();
-        String currentParty = curretArea.getClosestKalpi(pnt);
+        String currentParty = curretArea.getClosestKalpi(pnt).toLowerCase();
         if (curretArea != null) {
+            if (econBoxFlag && votesBoxFlag && !currentParty.equals(""))
+                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
 
-            if (econBoxFlag && votesBoxFlag && !currentParty.equals("")) {
-                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
-            }
-            else if (eduBoxFlag && votesBoxFlag && !currentParty.equals("")) {
-                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
-            }
-            else {
-                if (votesBoxFlag) {
-                    if (!currentParty.equals("")) {
-                        soundManager.playSound(Parameters.politics, currentParty.hashCode());
-                    }
-                } else {
-                    soundManager.stopSound(Parameters.politics);
-                }
-                if (currentEconStatus != -1) {
+            else if (eduBoxFlag && votesBoxFlag && !currentParty.equals(""))
+                soundManager.playSound(Parameters.politics_education, currentParty.hashCode());
+
+            else if (votesBoxFlag && !currentParty.equals(""))
+                soundManager.playSound(Parameters.politics, currentParty.hashCode());
+            if (econBoxFlag && currentEconStatus != -1) {
                     int newStatus = 0;
                     if (currentEconStatus <= 3) {
                         newStatus = 4;
@@ -166,10 +179,14 @@ public class Manager {
                     }
                     if (econBoxFlag)
                         soundManager.playSound(Parameters.econ, newStatus);
-                    else
-                        soundManager.stopSound(Parameters.econ);
-                }
             }
+
+            if (!votesBoxFlag)
+                soundManager.stopSound(Parameters.politics);
+            if (!econBoxFlag)
+                soundManager.stopSound(Parameters.econ);
+            if (!eduBoxFlag)
+                soundManager.stopSound(Parameters.education);
         }
     }
 }

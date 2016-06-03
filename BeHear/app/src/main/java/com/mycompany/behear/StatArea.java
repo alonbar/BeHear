@@ -11,9 +11,13 @@ public class StatArea {
     private ArrayList<Kalpi> kalpiList; //key = name of miflaga, value = num of vots
     private int socio;
     private int id;
+    private double schoolGraduate;
+    private double uniGraduate;
     public StatArea(Polygon polygon, int id){
         this.polygon = new Polygon(polygon.getGeometryTable());
         this.socio = -1;
+        this.schoolGraduate = -1;
+        this.uniGraduate = -1;
         this.kalpiList = new ArrayList<>();
         this.id = id;
     }
@@ -94,6 +98,22 @@ public class StatArea {
 
     public int getEcon(){
         return this.socio;
+    }
+
+    public double getSchoolGraduate() {
+        return this.schoolGraduate;
+    }
+
+    public void setSchoolGraduate(double precentage) {
+        this.schoolGraduate = precentage;
+    }
+
+    public double getUniGraduate() {
+        return this.uniGraduate;
+    }
+
+    public void setUniGraduate(double precentage) {
+        this.uniGraduate = precentage;
     }
 
 

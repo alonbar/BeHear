@@ -27,55 +27,11 @@ public class SoundManager {
     //If the sound is already played, then it will just let it continue.
     //If the sound is not played but another sound ot the same category is played (i.e different level) it will stop the sound and start it with the new level.
     public boolean playSound(Parameters param, int level) {
-        if (this.isPlaying(param, level)) {
-            return false;
-        }
-        else {
-            int currentSoundLevel = this.isPlayingDifferentLevel(param, level);
-            if (currentSoundLevel != -1) {
-                this.stopSound(param, currentSoundLevel);
-            }
-            this.startSound(param, level);
-            return true;
-        }
-    }
-
-    public boolean playSound(Parameters param, int level, boolean enforce) {
-        if (enforce)
-            this.stopAllSounds();
-        return playSound(param,level);
-    }
-
-
-
-    //Checking if a certain sound is played./
-    private boolean isPlaying(Parameters param, int level) {
-       return soundPool.isPlaying(param, level);
-    }
-
-    //Checking if a sound with the same category but different level is played.
-    //if so returns it's level, otherwise return -1.
-    private int isPlayingDifferentLevel(Parameters param, int level) {
-        return soundPool.isPlayingDifferentLevel(param, level);
-    }
-
-    //Starting a sound
-    private boolean startSound (Parameters param, int level) {
-        //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
         this.soundPool.startSound(param, level);
         return true;
     }
 
-    //stopping a sound with a param and lavel.
-    public boolean stopSound (Parameters param, int level) {
-        //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
-        if (soundPool.isPlaying(param, level)) {
-            this.soundPool.stopSound(param, level);
-        }
-        return true;
-    }
-
-    //stopping a sound with only param.
+      //stopping a sound with only param.
     public boolean stopSound (Parameters param) {
         //ToDo - after fixing all the sounds nned to convert a param and level to the Address of R.raw.zehava
             this.soundPool.stopSound(param);

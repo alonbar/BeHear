@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 
-public class MainActivity extends FragmentActivity  implements OnMapReadyCallback {
+public class MainActivity extends FragmentActivity  implements OnMapReadyCallback{
         private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
@@ -52,7 +52,6 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 mapHelper = new MapHelper(getApplicationContext());
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
-
                 }
                 else {
                         ActivityCompat.requestPermissions(this,
@@ -73,6 +72,12 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         votesBox.setChecked(false);
                                         Manager.votesBoxFlag = false;
                                 }
+                                if (offlineModeFlag && offlineModeMarker != null) {
+                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                        offlineLifeCycle.execute();
+                                }
+
+
                         }
                 });
 
@@ -88,6 +93,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         econBox.setChecked(false);
                                         Manager.econBoxFlag = false;
                                 }
+                                if (offlineModeFlag && offlineModeMarker != null){
+                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                        offlineLifeCycle.execute();
+                                }
                         }
                 });
 
@@ -102,6 +111,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 else {
                                         eduBox.setChecked(false);
                                         Manager.econBoxFlag = true;
+                                }
+                                if (offlineModeFlag && offlineModeMarker != null){
+                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                        offlineLifeCycle.execute();
                                 }
 
                         }
@@ -135,8 +148,24 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                                 .position(latLng)
                                                 .draggable(true)
                                                 .title("Now playing"));
+                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+                                        {
+                                                @Override
+                                                public boolean onMarkerClick(Marker arg0) {
+                                                        if(offlineModeMarker.equals(arg0)){
+                                                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                                                offlineLifeCycle.execute();
+                                                        }
+                                                        return true;
+                                                }
+
+                                        });
 
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
+                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                        offlineLifeCycle.execute();
+
+
                                 }
                         }
                 });
@@ -212,11 +241,14 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
         }
 
+
         private class Daemon extends AsyncTask<Boolean, Point, String> {
 
                 @Override
                 protected String doInBackground(Boolean... params) {
                         while(activityFlag == true){
+                                if (offlineModeFlag)
+                                        return null;
                                 Point pnt = null;
                                 if (!offlineModeFlag) {
                                         pnt = manager.getCurrentCoordinate();
@@ -253,7 +285,34 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                                 mMap.setMyLocationEnabled(true);
                         }
                 }
+        }
 
+
+        private class OfflineDaemon extends AsyncTask<Boolean, Point, String> {
+
+                @Override
+                protected String doInBackground(Boolean... params) {
+                        Point pnt = new Point(Double.valueOf(Location.convert(offlineMarkerLatLng.longitude, Location.FORMAT_DEGREES)), Double.valueOf(Location.convert(offlineMarkerLatLng.latitude, Location.FORMAT_DEGREES)));
+                        if (pnt != null)
+                                manager.startLifeCycle(pnt);
+                        return "Executed";
+                }
+
+                @Override
+                protected void onPostExecute(String result) {
+
+                }
+
+                @Override
+                protected void onPreExecute() {}
+
+                @Override
+                protected void onProgressUpdate(Point... values) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(values[0].getLat(), values[0].getLong()), 15));
+                        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                mMap.setMyLocationEnabled(true);
+                        }
+                }
         }
 }
 
