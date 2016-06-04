@@ -1,6 +1,7 @@
 package com.mycompany.behear;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -10,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -60,6 +63,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 }
 
 
+                Toast.makeText(getApplicationContext(), "The application requires you to be in Jerusalem",
+                        Toast.LENGTH_SHORT).show();
                 votesBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                         @Override
@@ -110,7 +115,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 }
                                 else {
                                         eduBox.setChecked(false);
-                                        Manager.econBoxFlag = true;
+                                        Manager.eduBoxFlag = false;
                                 }
                                 if (offlineModeFlag && offlineModeMarker != null){
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
@@ -198,6 +203,8 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
         @Override
         protected void onResume() {
                 super.onResume();
+                if (MainActivity.statAreaTable == null)
+                        Manager.BeHearInit(getApplicationContext());
                 setUpMapIfNeeded();
         }
 

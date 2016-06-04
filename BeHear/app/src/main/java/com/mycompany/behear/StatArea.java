@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class StatArea {
     private Polygon polygon;
-    private ArrayList<Kalpi> kalpiList; //key = name of miflaga, value = num of vots
+    static public ArrayList<Kalpi> kalpiList; //key = name of miflaga, value = num of vots
     private int socio;
     private int id;
     private double schoolGraduate;

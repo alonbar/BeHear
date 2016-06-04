@@ -1,7 +1,9 @@
 package com.mycompany.behear;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -12,6 +14,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.mycompany.behear.MainActivity;
+
+import static com.google.android.gms.internal.zzir.runOnUiThread;
+
 /**
  * Created by baralon on 04/05/2016.
  */
@@ -28,6 +33,7 @@ public class Manager {
         mapHelper = new MapHelper(context);
         mapHelper.init();
         soundManager = new SoundManager(context);
+        this.context = context;
 
     }
 
@@ -71,6 +77,7 @@ public class Manager {
             BufferedReader reader;
             String line;
             in = context.getAssets().open("Kalpi.csv");
+            StatArea.kalpiList = new ArrayList<>();
             reader = new BufferedReader(new InputStreamReader(in));
             reader.readLine();
             HashMap<Integer, ArrayList<Kalpi>> kapliTable = new HashMap<>();
@@ -80,20 +87,7 @@ public class Manager {
                 Point pnt = new Point(Double.parseDouble(parsedLine[1]), Double.parseDouble(parsedLine[0]));
                 if (parsedLine[2].equals("NULL"))
                     continue;
-                if (kapliTable.get(Integer.valueOf(parsedLine[2])) == null) {
-                    ArrayList<Kalpi> kalpiList = new ArrayList<>();
-                    kalpiList.add(new Kalpi(pnt, parsedLine[3]));
-                    kapliTable.put(Integer.valueOf(parsedLine[2]), kalpiList);
-                } else {
-                    kapliTable.get(Integer.valueOf(parsedLine[2])).add(new Kalpi(pnt, parsedLine[3]));
-                }
-            }
-
-            for (Integer statNumber : kapliTable.keySet()) {
-                StatArea area = MainActivity.statAreaTable.get(statNumber);
-                if (area != null) {
-                    area.setKapliList(kapliTable.get(statNumber));
-                }
+                StatArea.kalpiList.add(new Kalpi(pnt, parsedLine[3]));
             }
         } catch (Exception e) {
             Log.d("bla", e.getMessage());
@@ -139,6 +133,8 @@ public class Manager {
 
 
     private StatArea getStatArea(Point point) {
+        if (MainActivity.statAreaTable == null)
+            return null;
         for (StatArea curStat : MainActivity.statAreaTable.values()) {
             if (curStat.getPolygon().isPointInPolygon(point)) {
                 return curStat;
@@ -153,9 +149,9 @@ public class Manager {
 
     public void startLifeCycle(Point pnt) {
         StatArea curretArea = this.getStatArea(pnt);
-        int currentEconStatus = curretArea.getEcon();
-        String currentParty = curretArea.getClosestKalpi(pnt).toLowerCase();
         if (curretArea != null) {
+            int currentEconStatus = curretArea.getEcon();
+            String currentParty = curretArea.getClosestKalpi(pnt).toLowerCase();
             if (econBoxFlag && votesBoxFlag && !currentParty.equals(""))
                 soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
 
@@ -187,6 +183,19 @@ public class Manager {
                 soundManager.stopSound(Parameters.econ);
             if (!eduBoxFlag)
                 soundManager.stopSound(Parameters.education);
+        }
+        else {
+            new Thread() {
+                public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "The application requires you to be in Jerusalem",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }}.start();
+
         }
     }
 }
