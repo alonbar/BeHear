@@ -2,6 +2,9 @@ package com.mycompany.behear;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -24,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity  implements OnMapReadyCallback{
-        private GoogleMap mMap;
+        static private GoogleMap mMap;
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
         static HashMap<Integer, StatArea> statAreaTable;
@@ -63,8 +66,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 }
 
 
-                Toast.makeText(getApplicationContext(), "The application requires you to be in Jerusalem",
-                        Toast.LENGTH_SHORT).show();
+
                 votesBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                         @Override
@@ -82,7 +84,6 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineLifeCycle.execute();
                                 }
 
-
                         }
                 });
 
@@ -93,12 +94,11 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 if (isChecked) {
                                         econBox.setChecked(true);
                                         Manager.econBoxFlag = true;
-                                }
-                                else {
+                                } else {
                                         econBox.setChecked(false);
                                         Manager.econBoxFlag = false;
                                 }
-                                if (offlineModeFlag && offlineModeMarker != null){
+                                if (offlineModeFlag && offlineModeMarker != null) {
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                         offlineLifeCycle.execute();
                                 }
@@ -112,12 +112,11 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 if (isChecked) {
                                         eduBox.setChecked(true);
                                         Manager.eduBoxFlag = true;
-                                }
-                                else {
+                                } else {
                                         eduBox.setChecked(false);
                                         Manager.eduBoxFlag = false;
                                 }
-                                if (offlineModeFlag && offlineModeMarker != null){
+                                if (offlineModeFlag && offlineModeMarker != null) {
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                         offlineLifeCycle.execute();
                                 }
@@ -132,8 +131,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 if (isChecked) {
                                         offlineModeBox.setChecked(true);
                                         offlineModeFlag = true;
-                                }
-                                else {
+                                } else {
                                         eduBox.setChecked(false);
                                         offlineModeFlag = false;
                                 }
@@ -153,11 +151,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                                 .position(latLng)
                                                 .draggable(true)
                                                 .title("Now playing"));
-                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-                                        {
+                                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                                 @Override
                                                 public boolean onMarkerClick(Marker arg0) {
-                                                        if(offlineModeMarker.equals(arg0)){
+                                                        if (offlineModeMarker.equals(arg0)) {
                                                                 OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                                                 offlineLifeCycle.execute();
                                                         }
@@ -178,21 +175,26 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
 mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
 
-                                     @Override
-                                     public void onMarkerDragStart(Marker marker) {
+        @Override
+        public void onMarkerDragStart(Marker marker) {
 
-                                     }
+        }
 
-                                     @Override
-                                     public void onMarkerDrag(Marker marker) {
-                                             offlineMarkerLatLng = offlineModeMarker.getPosition();
-                                     }
+        @Override
+        public void onMarkerDrag(Marker marker) {
+                offlineMarkerLatLng = offlineModeMarker.getPosition();
+        }
 
-                                     @Override
-                                     public void onMarkerDragEnd(Marker marker) {
-                                             offlineMarkerLatLng = offlineModeMarker.getPosition();
-                                     }
-                             });
+        @Override
+        public void onMarkerDragEnd(Marker marker) {
+                offlineMarkerLatLng = offlineModeMarker.getPosition();
+        }
+});
+                Point pnt = manager.getCurrentCoordinate();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        mMap.setMyLocationEnabled(true);
+                }
 //                Daemon d = new Daemon();
 //                d.execute();
 
@@ -234,6 +236,16 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                                         // contacts-related task you need to do.
 
                                 } else {
+                                        new AlertDialog.Builder(getApplicationContext())
+                                                .setTitle("Location information")
+                                                .setMessage("For this Application please confirm location permissions.\n You may revoke the permission later.")
+                                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                finish();
+                                                        }
+                                                })
+                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .show();
 
                                         // permission denied, boo! Disable the
                                         // functionality that depends on this permission.
@@ -319,6 +331,14 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                                 mMap.setMyLocationEnabled(true);
                         }
+                }
+        }
+
+        static public void updateMap(Context context) {
+                Point pnt = manager.getCurrentCoordinate();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
+                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        mMap.setMyLocationEnabled(true);
                 }
         }
 }

@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,6 +18,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.util.jar.Manifest;
+
+import static com.google.android.gms.internal.zzir.runOnUiThread;
 
 public class MapHelper {
 
@@ -54,6 +57,15 @@ public class MapHelper {
                             lastKnownLocation = new Point(lng, lat);
                             MainActivity.manager.startLifeCycle(lastKnownLocation);
                        }
+                        new Thread() {
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        MainActivity.updateMap(context);
+                                    }
+                                });
+                            }}.start();
                     }
                 }
 

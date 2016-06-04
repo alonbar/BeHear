@@ -56,7 +56,6 @@ public class Manager {
             json = new String(buffer, "UTF-8");
         } catch (Exception ex) {
             //ex.printStackTrace();
-            Log.d("bla", ex.getMessage());
             return;
         }
         try {
@@ -90,7 +89,7 @@ public class Manager {
                 StatArea.kalpiList.add(new Kalpi(pnt, parsedLine[3]));
             }
         } catch (Exception e) {
-            Log.d("bla", e.getMessage());
+
             return;
         }
 
@@ -125,7 +124,6 @@ public class Manager {
 
 
         } catch (Exception ex) {
-            Log.d("Exception: ", ex.getMessage());
             return;
         }
 
