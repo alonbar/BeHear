@@ -23,8 +23,10 @@ public class MapHelper {
     private Context context;
     private LocationManager locationManager;
     LocationListener locationListener;
+    Point lastKnownLocation;
+    boolean firstTime;
+    static double maxDistance = 0.3;
 
-    Point currentLocation;
     public MapHelper(Context context) {
         this.context = context;
 
@@ -32,16 +34,27 @@ public class MapHelper {
 
     public void init() {
         if (ContextCompat.checkSelfPermission(this.context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
+            firstTime = true;
             this.locationManager = (LocationManager)this.context.getSystemService(Context.LOCATION_SERVICE);
-            this.currentLocation = new Point(0,0);
             this.locationListener = new LocationListener() {
                     @Override
                 public void onLocationChanged(Location location) {
                     double lat = location.getLatitude();
                     double lng = location.getLongitude();
-                    currentLocation.setLong(lng);
-                    currentLocation.setLat(lat);
+                    if (firstTime) {
+                        firstTime = false;
+                        lastKnownLocation = new Point(lng, lat);
+                        return;
+                    }
+                    if (MainActivity.offlineModeFlag) {
+                        lastKnownLocation = new Point(lng, lat);
+                    }
+                    else {
+                       if ((lastKnownLocation != null) && (StatArea.distance(location.getLongitude(), location.getLatitude(), lastKnownLocation.getLong(), lastKnownLocation.getLat(), 'K') > maxDistance)) {
+                            lastKnownLocation = new Point(lng, lat);
+                            MainActivity.manager.startLifeCycle(lastKnownLocation);
+                       }
+                    }
                 }
 
                 @Override

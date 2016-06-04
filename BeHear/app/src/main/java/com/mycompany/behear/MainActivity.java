@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         //connect to "currentpoint" the current location from the gps data
         static final LatLng currentpoint = new LatLng(35.208,31.781);
         static HashMap<Integer, StatArea> statAreaTable;
-        Manager manager;
+        static public Manager manager;
         MapHelper mapHelper;
         boolean activityFlag;
         CheckBox votesBox;
@@ -193,8 +193,8 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                                              offlineMarkerLatLng = offlineModeMarker.getPosition();
                                      }
                              });
-                Daemon d = new Daemon();
-                d.execute();
+//                Daemon d = new Daemon();
+//                d.execute();
 
         }
 

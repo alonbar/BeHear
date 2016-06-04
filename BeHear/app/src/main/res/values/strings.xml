@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">BeHear</string>
     <string name="title_activity_maps">Map</string>
-    <string name="socio">Socio-economic status</string>
+    <string name="socio">Economic</string>
     <string name="crime">Crime rate</string>
-    <string name="edu">Universities graduates</string>
-    <string name="votes">Political views</string>
-    <string name="offlineMode">Finger Travel</string>
+    <string name="edu">Education</string>
+    <string name="votes">Politics</string>
+    <string name="offlineMode">Explore</string>
 </resources>
