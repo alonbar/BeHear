@@ -150,13 +150,8 @@ public class Manager {
         if (curretArea != null) {
             int currentEconStatus = curretArea.getEcon();
             String currentParty = curretArea.getClosestKalpi(pnt).toLowerCase();
-            if (econBoxFlag && votesBoxFlag && !currentParty.equals(""))
-                soundManager.playSound(Parameters.politics_econ, currentParty.hashCode());
 
-            else if (eduBoxFlag && votesBoxFlag && !currentParty.equals(""))
-                soundManager.playSound(Parameters.politics_education, currentParty.hashCode());
-
-            else if (votesBoxFlag && !currentParty.equals(""))
+            if (votesBoxFlag && !currentParty.equals(""))
                 soundManager.playSound(Parameters.politics, currentParty.hashCode());
             if (econBoxFlag && currentEconStatus != -1) {
                     int newStatus = 0;

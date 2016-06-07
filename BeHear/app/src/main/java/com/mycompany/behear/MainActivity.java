@@ -183,6 +183,8 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
         @Override
         public void onMarkerDrag(Marker marker) {
                 offlineMarkerLatLng = offlineModeMarker.getPosition();
+                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                offlineLifeCycle.execute();
         }
 
         @Override
