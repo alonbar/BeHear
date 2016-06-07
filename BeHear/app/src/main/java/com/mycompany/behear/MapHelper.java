@@ -25,6 +25,8 @@ public class MapHelper {
 
     private Context context;
     private LocationManager locationManager;
+    private float previousZoomLevel = -1.0f;
+    private boolean isZooming = false;
     LocationListener locationListener;
     Point lastKnownLocation;
     boolean firstTime;
@@ -110,4 +112,36 @@ public class MapHelper {
     public void showCurrentCoordination() {
 
     }
+
+    public int getIcon(String party){
+       int icon = -1;
+        switch (party){
+            case "T":
+                icon = R.drawable.t_icon;
+                break;
+            case "G":
+                icon = R.drawable.g_icon;
+                break;
+            case "A":
+                icon = R.drawable.a_icon;
+                break;
+            case "K":
+                icon = R.drawable.k_icon;
+                break;
+            case "L":
+                icon = R.drawable.l_icon;
+                break;
+            case "M":
+                icon = R.drawable.m_icon;
+                break;
+            case "S":
+                icon = R.drawable.s_icon;
+                break;
+            case "V":
+                icon = R.drawable.v_icon;
+                break;
+        }
+        return icon;
+    }
+
 }

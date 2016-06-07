@@ -38,6 +38,23 @@ public class StatArea {
 
     public ArrayList<Kalpi> getKalpiList(){return this.kalpiList;}
 
+    public Point getClosestPoint(Point point){
+        double minDistance = Double.MAX_VALUE;
+        Point partyPos = null;
+        if(this.kalpiList.isEmpty()){
+            return null;
+        }
+        for(int i = 0; i < this.kalpiList.size(); i++){
+            double distance = this.distance(point.getLat(), point.getLong(), this.kalpiList.get(i).getPoint().getLat(), this.kalpiList.get(i).getPoint().getLong(), 'K');
+            if(minDistance > distance){
+                minDistance = distance;
+                partyPos = this.kalpiList.get(i).getPoint();
+            }
+        }
+        return partyPos;
+    }
+
+
     public String getClosestKalpi(Point point){
         double minDistance = Double.MAX_VALUE;
         String party = "";
