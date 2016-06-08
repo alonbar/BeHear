@@ -63,19 +63,22 @@ public class MapHelper {
                         lastKnownLocation = new Point(lng, lat);
                     }
                     else {
-                       if ((lastKnownLocation != null) && (StatArea.distance(location.getLongitude(), location.getLatitude(), lastKnownLocation.getLong(), lastKnownLocation.getLat(), 'K') > maxDistance)) {
+                       if ((lastKnownLocation != null) &&
+                           (StatArea.distance(location.getLongitude(), location.getLatitude(), lastKnownLocation.getLong(), lastKnownLocation.getLat(), 'K') > maxDistance)) {
                             lastKnownLocation = new Point(lng, lat);
-                            MainActivity.manager.startLifeCycle(lastKnownLocation);
+                           new Thread() {
+                               public void run() {
+                                   runOnUiThread(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           MainActivity.manager.startLifeCycle(lastKnownLocation);
+                                       }
+                                   });
+                               }}.start();
+
                        }
-                        new Thread() {
-                            public void run() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        MainActivity.updateMap(context);
-                                    }
-                                });
-                            }}.start();
+                        MainActivity.updateMap(context);
+
                     }
                 }
 
