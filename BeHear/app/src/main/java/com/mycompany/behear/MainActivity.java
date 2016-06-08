@@ -60,6 +60,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 }
                 mapHelper = new MapHelper(getApplicationContext());
+                mapHelper.setMarkers(mMap, currentIcons, 15);
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
                 }
@@ -70,7 +71,6 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 }
 
 
-
                 votesBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                         @Override
@@ -78,8 +78,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 if (isChecked) {
                                         votesBox.setChecked(true);
                                         Manager.votesBoxFlag = true;
-                                }
-                                else {
+                                } else {
                                         votesBox.setChecked(false);
                                         Manager.votesBoxFlag = false;
                                 }
@@ -154,7 +153,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeMarker = mMap.addMarker(new MarkerOptions()
                                                 .position(latLng)
                                                 .draggable(true)
-                                                .title("info").snippet("boggggiiii"));
+                                                .title("info"));
                                         offlineModeMarker.showInfoWindow();
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -181,50 +180,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
                         @Override
                         public void onCameraChange(CameraPosition cameraPosition) {
-
-//                                if (cameraPosition.zoom > 10 && offlineModeBox.isChecked() && offlineModeMarker != null) {
-//
-//                                        LatLng coordinates = offlineModeMarker.getPosition();
-//                                        Point point = new Point(coordinates.longitude, coordinates.latitude);
-//                                        Point partyPos = null;
-//                                        String party = "";
-//                                        int PartyIcon = -1;
-//
-//                                        for (StatArea stat : statAreaTable.values()) {
-//                                                if (stat.getPolygon().isPointInPolygon(point)) {
-//                                                        partyPos = stat.getClosestPoint(point);
-//                                                        party = stat.getClosestKalpi(point);
-//                                                        break;
-//                                                }
-//                                        }
-//
-//                                        if (party != "") {
-//                                                PartyIcon = mapHelper.getIcon(party);
-//                                        }
-//
-//                                        if (partyPos != null) {
-//
-////                                Bitmap.Config conf = Bitmap.Config.ARGB_8888;
-////                                Bitmap bmp = Bitmap.createBitmap(80, 80, conf);
-////                                Canvas canvas = new Canvas(bmp);
-////                                Paint color = new Paint();
-////                                color.setTextSize(35);
-////                                color.setColor(Color.BLACK);
-////                                canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.square), 0, 0, color);
-////                                canvas.drawText("helo!!", 30, 40, color);
-//
-//                                                // mMap.addMarker(new MarkerOptions().position(offlineModeMarker.getPosition()).icon(BitmapDescriptorFactory.fromBitmap(bmp)));
-//
-//                                                currentIcons.add(mMap.addMarker(new MarkerOptions().position(new LatLng(partyPos.getLat(), partyPos.getLong()))
-//                                                        .title("partyIcon").icon(BitmapDescriptorFactory.fromResource(PartyIcon))));
-//                                        }
-//                                } else {
-//
-//                                        for (Marker marker : currentIcons) {
-//                                                marker.remove();
-//                                        }
-//                                }
-
+                                boolean visability = (cameraPosition.zoom > 14);
+                                for(Marker marker: currentIcons) {
+                                        marker.setVisible(visability);
+                                }
                         }
                 });
 
@@ -272,12 +231,10 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                         return;
                 }
                 mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+                //To do initialize map properly here
                 if (mMap == null) {
                         return;
                 }
-                // Initialize map options. For example:
-                // mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(31.781, 35.211), 10));
         }
 
         @Override
@@ -398,5 +355,6 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                         mMap.setMyLocationEnabled(true);
                 }
         }
+
 }
 

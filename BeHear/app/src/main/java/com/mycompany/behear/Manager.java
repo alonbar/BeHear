@@ -13,6 +13,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycompany.behear.MainActivity;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
@@ -178,6 +183,8 @@ public class Manager {
                 soundManager.stopSound(Parameters.education);
         }
         else {
+            soundManager.stopSound(Parameters.politics);
+            soundManager.stopSound(Parameters.econ);
             new Thread() {
                 public void run() {
                         runOnUiThread(new Runnable() {

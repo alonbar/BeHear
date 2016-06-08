@@ -1,6 +1,9 @@
 package com.mycompany.behear;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,10 +16,15 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.jar.Manifest;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
@@ -113,7 +121,7 @@ public class MapHelper {
 
     }
 
-    public int getIcon(String party){
+    public static int getIcon(String party){
        int icon = -1;
         switch (party){
             case "T":
@@ -144,4 +152,12 @@ public class MapHelper {
         return icon;
     }
 
+    public void setMarkers(GoogleMap mMap, ArrayList<Marker> currentIcons, float zoom) {
+        if (currentIcons == null)
+            currentIcons = new ArrayList<>();
+            for (Kalpi kalpi: StatArea.kalpiList) {
+                currentIcons.add(mMap.addMarker(new MarkerOptions().position(new LatLng(kalpi.getPoint().getLat(), kalpi.getPoint().getLong()))
+                        .title("partyIcon").icon(BitmapDescriptorFactory.fromResource(getIcon(kalpi.getPopolarParty())))));
+            }
+        }
 }
