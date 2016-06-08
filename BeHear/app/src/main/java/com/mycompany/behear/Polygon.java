@@ -24,6 +24,24 @@ public class Polygon {
         return result;
     }
 
+    public Point getCenter(){
+        double x1, x2, y1, y2, A, Cx, Cy;
+        A = 0; Cx = 0; Cy = 0;
+        for(int i = 0; i < geometryTable.size() - 1; i++){
+            x1 = geometryTable.get(i).getLong();
+            y1 = geometryTable.get(i).getLat();
+            x2 = geometryTable.get(i+1).getLong();
+            y2 = geometryTable.get(i+1).getLat();
+            A += x1 * y2 - x2 * y1;
+            Cx += (x1 + x2) * (x1 * y2 - x2 * y1);
+            Cy += (y1 + y2) * (x1 * y2 - x2 * y1);
+        }
+        A = 0.5 * A;
+        Cx = (1/(6 * A)) * Cx;
+        Cy = (1/(6 * A)) * Cy;
+        return new Point(Cx, Cy);
+    }
+
     public ArrayList<Point> getGeometryTable(){
         return this.geometryTable;
     }

@@ -82,6 +82,13 @@ public class StatArea {
         }
     }
 
+    public String getData(){
+        String str = "Economic status: " + this.socio / 4 + "\n"; //socio: 1-20. 20- higher.
+        str += "School graduates percentage: " + this.schoolGraduate + "\n";
+        str += "University graduates percentage: " + this.uniGraduate + "\n";
+        return str;
+    }
+
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     /*::  taken from http://stackoverflow.com/questions/3694380/calculating-distance-between-two-points-using-latitude-longitude-what-am-i-doi:*/

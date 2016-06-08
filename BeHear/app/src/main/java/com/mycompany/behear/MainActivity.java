@@ -38,29 +38,31 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         boolean activityFlag;
         CheckBox votesBox;
         CheckBox econBox;
-        CheckBox eduBox;
+        CheckBox dataBox;
         CheckBox offlineModeBox;
         static Marker offlineModeMarker = null;
         static boolean offlineModeFlag = false;
         static LatLng offlineMarkerLatLng = null;
         private ArrayList<Marker> currentIcons;
+        private ArrayList<Marker> currentData;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
-                eduBox = (CheckBox)findViewById(R.id.checkbox_edu);
+                dataBox = (CheckBox)findViewById(R.id.checkbox_data);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
                 offlineModeBox = (CheckBox)findViewById(R.id.offlineMode);
                 activityFlag = true;
                 manager = new Manager(getApplicationContext());
                 currentIcons = new ArrayList<>();
+                currentData = new ArrayList<>();
                 if (mMap == null) {
                         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 }
                 mapHelper = new MapHelper(getApplicationContext());
-                mapHelper.setMarkers(mMap, currentIcons, 15);
+                mapHelper.setData(mMap, currentData, 15);
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
                 }
@@ -106,16 +108,20 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         }
                 });
 
-                eduBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                dataBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
-                                        eduBox.setChecked(true);
+                                        dataBox.setChecked(true);
                                         Manager.eduBoxFlag = true;
+                                        mapHelper.setMarkers(mMap, currentIcons, 15);
                                 } else {
-                                        eduBox.setChecked(false);
+                                        dataBox.setChecked(false);
                                         Manager.eduBoxFlag = false;
+                                        for(Marker marker: currentIcons) {
+                                                marker.setVisible(false);
+                                        }
                                 }
                                 OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                 offlineLifeCycle.execute();
@@ -131,7 +137,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeBox.setChecked(true);
                                         offlineModeFlag = true;
                                 } else {
-                                        eduBox.setChecked(false);
+                                        dataBox.setChecked(false);
                                         offlineModeFlag = false;
                                 }
 
@@ -148,8 +154,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         }
                                         offlineModeMarker = mMap.addMarker(new MarkerOptions()
                                                 .position(latLng)
-                                                .draggable(true)
-                                                .title("info"));
+                                                .draggable(true));
                                         offlineModeMarker.showInfoWindow();
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -167,8 +172,6 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                         offlineLifeCycle.execute();
-
-
                                 }
                         }
                 });
@@ -211,8 +214,6 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 //                d.execute();
 
         }
-
-
 
         @Override
         protected void onResume() {
