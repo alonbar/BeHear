@@ -34,7 +34,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-
     <CheckBox android:id="@+id/offlineMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="33dp" />
 
-    <CheckBox android:id="@+id/checkbox_edu"
+    <CheckBox android:id="@+id/checkbox_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edu"

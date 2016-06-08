@@ -159,5 +159,15 @@ public class MapHelper {
                 currentIcons.add(mMap.addMarker(new MarkerOptions().position(new LatLng(kalpi.getPoint().getLat(), kalpi.getPoint().getLong()))
                         .title("partyIcon").icon(BitmapDescriptorFactory.fromResource(getIcon(kalpi.getPopolarParty())))));
             }
+    }
+
+    public void setData(GoogleMap mMap, ArrayList<Marker> currnetData, float zoom){
+        if (currnetData == null)
+            currnetData = new ArrayList<>();
+        for(StatArea stat : MainActivity.statAreaTable.values()){
+            currnetData.add(mMap.addMarker(new MarkerOptions().position(new LatLng(stat.getPolygon().getCenter().getLat() , stat.getPolygon().getCenter().getLong()))
+                    .title("info").icon(BitmapDescriptorFactory.fromResource(R.drawable.sign)).snippet(stat.getData())));
         }
+    }
+
 }
