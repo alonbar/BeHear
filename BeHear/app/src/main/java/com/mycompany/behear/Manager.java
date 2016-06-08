@@ -147,8 +147,6 @@ public class Manager {
                     }
                 }
             }
-        int a = 0;
-        a++;
         } catch (Exception ex) {
             return;
         }
