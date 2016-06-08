@@ -63,19 +63,22 @@ public class MapHelper {
                         lastKnownLocation = new Point(lng, lat);
                     }
                     else {
-                       if ((lastKnownLocation != null) && (StatArea.distance(location.getLongitude(), location.getLatitude(), lastKnownLocation.getLong(), lastKnownLocation.getLat(), 'K') > maxDistance)) {
+                       if ((lastKnownLocation != null) &&
+                           (StatArea.distance(location.getLongitude(), location.getLatitude(), lastKnownLocation.getLong(), lastKnownLocation.getLat(), 'K') > maxDistance)) {
                             lastKnownLocation = new Point(lng, lat);
-                            MainActivity.manager.startLifeCycle(lastKnownLocation);
+                           new Thread() {
+                               public void run() {
+                                   runOnUiThread(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           MainActivity.manager.startLifeCycle(lastKnownLocation);
+                                       }
+                                   });
+                               }}.start();
+
                        }
-                        new Thread() {
-                            public void run() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        MainActivity.updateMap(context);
-                                    }
-                                });
-                            }}.start();
+                        MainActivity.updateMap(context);
+
                     }
                 }
 
@@ -159,5 +162,15 @@ public class MapHelper {
                 currentIcons.add(mMap.addMarker(new MarkerOptions().position(new LatLng(kalpi.getPoint().getLat(), kalpi.getPoint().getLong()))
                         .title("partyIcon").icon(BitmapDescriptorFactory.fromResource(getIcon(kalpi.getPopolarParty())))));
             }
+    }
+
+    public void setData(GoogleMap mMap, ArrayList<Marker> currnetData, float zoom){
+        if (currnetData == null)
+            currnetData = new ArrayList<>();
+        for(StatArea stat : MainActivity.statAreaTable.values()){
+            currnetData.add(mMap.addMarker(new MarkerOptions().position(new LatLng(stat.getPolygon().getCenter().getLat() , stat.getPolygon().getCenter().getLong()))
+                    .title("info").icon(BitmapDescriptorFactory.fromResource(R.drawable.sign)).snippet(stat.getData())));
         }
+    }
+
 }

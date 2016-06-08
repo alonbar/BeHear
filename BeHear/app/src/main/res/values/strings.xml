@@ -3,7 +3,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="socio">Economic</string>
     <string name="crime">Crime rate</string>
-    <string name="edu">Education</string>
+    <string name="edu">showData</string>
     <string name="votes">Politics</string>
     <string name="offlineMode">Explore</string>
 </resources>

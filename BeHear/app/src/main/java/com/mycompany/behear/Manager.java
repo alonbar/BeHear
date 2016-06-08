@@ -127,7 +127,26 @@ public class Manager {
                 }
             }
 
-
+            in = context.getAssets().open("crime.csv");
+            reader = new BufferedReader(new InputStreamReader(in));
+            line = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] parsedLine = line.split(",");
+                if (MainActivity.statAreaTable.containsKey(Integer.valueOf(parsedLine[0]))) {
+                    StatArea currentArea = MainActivity.statAreaTable.get(Integer.valueOf(parsedLine[0]));
+                    if (parsedLine.length > 2) {
+                        if (parsedLine[1].equals("Property_crime")) {
+                            currentArea.setPropertyCrimeCount(Integer.valueOf(parsedLine[2]));
+                        }
+                        else if(parsedLine[1].equals("Sexua_harassment")) {
+                            currentArea.setSexualHarassmentCount(Integer.valueOf(parsedLine[2]));
+                        }
+                        else if (parsedLine[1].equals("Violence1") || parsedLine[1].equals("Violence2")) {
+                            currentArea.setViolenceCount(currentArea.getViolenceCount() + Integer.valueOf(parsedLine[2]));
+                        }
+                    }
+                }
+            }
         } catch (Exception ex) {
             return;
         }
