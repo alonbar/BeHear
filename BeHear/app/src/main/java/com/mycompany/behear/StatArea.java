@@ -1,7 +1,6 @@
 package com.mycompany.behear;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Inbar on 04/05/2016.
@@ -13,6 +12,9 @@ public class StatArea {
     private int id;
     private double schoolGraduate;
     private double uniGraduate;
+    private int propertyCrimeCount;
+    private int sexualHarassmentCount;
+    private int violenceCount;
     public StatArea(Polygon polygon, int id){
         this.polygon = new Polygon(polygon.getGeometryTable());
         this.socio = -1;
@@ -20,6 +22,9 @@ public class StatArea {
         this.uniGraduate = -1;
         this.kalpiList = new ArrayList<>();
         this.id = id;
+        this.propertyCrimeCount = 0;
+        this.sexualHarassmentCount = 0;
+        this.violenceCount = 0;
     }
 
     public StatArea(){
@@ -133,5 +138,28 @@ public class StatArea {
         this.uniGraduate = precentage;
     }
 
+    public void setPropertyCrimeCount(int count) {
+        this.propertyCrimeCount = count;
+    }
+
+    public int getPropertyCrimeCount(){
+        return this.propertyCrimeCount;
+    }
+
+    public void setSexualHarassmentCount(int count) {
+        this.sexualHarassmentCount = count;
+    }
+
+    public int getSexualHarassmentCount() {
+        return this.sexualHarassmentCount;
+    }
+
+    public void setViolenceCount(int count) {
+        this.violenceCount = count;
+    }
+
+    public int getViolenceCount() {
+        return this.violenceCount;
+    }
 
 }

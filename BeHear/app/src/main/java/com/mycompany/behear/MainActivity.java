@@ -82,10 +82,9 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         votesBox.setChecked(false);
                                         Manager.votesBoxFlag = false;
                                 }
-                                if (offlineModeFlag && offlineModeMarker != null) {
-                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
-                                        offlineLifeCycle.execute();
-                                }
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
+
 
                         }
                 });
@@ -101,10 +100,9 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         econBox.setChecked(false);
                                         Manager.econBoxFlag = false;
                                 }
-                                if (offlineModeFlag && offlineModeMarker != null) {
-                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
-                                        offlineLifeCycle.execute();
-                                }
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
+
                         }
                 });
 
@@ -119,10 +117,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         eduBox.setChecked(false);
                                         Manager.eduBoxFlag = false;
                                 }
-                                if (offlineModeFlag && offlineModeMarker != null) {
-                                        OfflineDaemon offlineLifeCycle = new OfflineDaemon();
-                                        offlineLifeCycle.execute();
-                                }
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
 
                         }
                 });
@@ -325,9 +321,13 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
                 @Override
                 protected String doInBackground(Boolean... params) {
-                        Point pnt = new Point(Double.valueOf(Location.convert(offlineMarkerLatLng.longitude, Location.FORMAT_DEGREES)), Double.valueOf(Location.convert(offlineMarkerLatLng.latitude, Location.FORMAT_DEGREES)));
-                        if (pnt != null)
-                                manager.startLifeCycle(pnt);
+                        Point currentLocation;
+                        if (offlineModeFlag && offlineMarkerLatLng != null)
+                                currentLocation = new Point(Double.valueOf(Location.convert(offlineMarkerLatLng.longitude, Location.FORMAT_DEGREES)), Double.valueOf(Location.convert(offlineMarkerLatLng.latitude, Location.FORMAT_DEGREES)));
+                        else
+                                currentLocation = manager.getCurrentCoordinate();
+                        if (currentLocation != null)
+                                manager.startLifeCycle(currentLocation);
                         return "Executed";
                 }
 
@@ -353,6 +353,7 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
                 if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mMap.setMyLocationEnabled(true);
+
                 }
         }
 
