@@ -3,6 +3,7 @@ package com.mycompany.behear;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -12,8 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +43,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         CheckBox econBox;
         CheckBox dataBox;
         CheckBox offlineModeBox;
+        ImageButton aboutBut;
         static Marker offlineModeMarker = null;
         static boolean offlineModeFlag = false;
         static LatLng offlineMarkerLatLng = null;
@@ -53,6 +57,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
                 dataBox = (CheckBox)findViewById(R.id.checkbox_data);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
+                aboutBut = (ImageButton) findViewById(R.id.about);
                 offlineModeBox = (CheckBox)findViewById(R.id.offlineMode);
                 activityFlag = true;
                 manager = new Manager(getApplicationContext());
@@ -213,6 +218,16 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 //                Daemon d = new Daemon();
 //                d.execute();
 
+                aboutBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                final Dialog aboutDialog = new Dialog(getApplicationContext());
+                                aboutDialog.setContentView(R.layout.about_dialog);
+                                aboutDialog.setTitle("About BeHear");
+                                aboutDialog.show();
+
+                        }
+                });
         }
 
         @Override

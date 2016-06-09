@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/app_explanation"
+        android:id="@+id/app_Exp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="78dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/app_explanation_socio"
+        android:id="@+id/app_Exp2"
+        android:layout_below="@id/app_Exp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/app_explanation_votes"
+        android:id="@+id/app_Exp3"
+        android:layout_below="@id/app_Exp2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/app_explanation_explore"
+        android:id="@+id/app_Explore"
+        android:layout_below="@id/app_Exp3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/develoment1"
+        android:textStyle="bold"
+        android:id="@+id/app_dev1"
+        android:layout_below="@id/app_Explore" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/develoment2"
+        android:id="@+id/app_dev2"
+        android:textStyle="bold"
+        android:layout_below="@id/app_dev1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/develoment3"
+        android:id="@+id/app_dev3"
+        android:layout_below="@id/app_dev2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/thanks"
+        android:id="@+id/thankyous"
+        android:layout_below="@id/app_dev3" />
+
+</RelativeLayout>
