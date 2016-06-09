@@ -221,7 +221,7 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                 aboutBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                final Dialog aboutDialog = new Dialog(getApplicationContext());
+                                        final Dialog aboutDialog = new Dialog(MainActivity.this);
                                 aboutDialog.setContentView(R.layout.about_dialog);
                                 aboutDialog.setTitle("About BeHear");
                                 aboutDialog.show();
