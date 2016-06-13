@@ -59,7 +59,6 @@ public class StatArea {
         return partyPos;
     }
 
-
     public String getClosestKalpi(Point point){
         double minDistance = Double.MAX_VALUE;
         String party = "";

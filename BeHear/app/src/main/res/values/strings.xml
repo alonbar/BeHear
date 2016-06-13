@@ -6,8 +6,8 @@
     <string name="edu">showData</string>
     <string name="votes">Politics</string>
     <string name="offlineMode">Explore</string>
-    <string name="app_explanation">BeHear uses sonification in order to convey real statistical data in real-time</string>
-    <string name="app_explanation_socio">For example, socio-econimic data on statistical areas in jerusalem (Taken from CBS) is sonified through voices of babies: the more the area has a lower socio-economic status, the more the babies cry.</string>
+    <string name="app_explanation">BeHear uses sonification in order to convey real statistical data in real-time.</string>
+    <string name="app_explanation_socio">For example, socio-economic data on statistical areas in jerusalem (Taken from CBS) is sonified through voices of babies: the more the area has a lower socio-economic status, the more the babies cry.</string>
     <string name="app_explanation_votes">Data on votes is taken from official governmental data and is sonified through speeches of leaders of the main party elected in this area.</string>
     <string name="app_explanation_choice">You can choose to hear these together, or each on alone.</string>
     <string name="app_explanation_explore">If you want to explore Jerusalem yourself, press on the "Explore" checkbox, create a marker and drag it through the map. you will hear the data you requested on the area your finger is pointing to.</string>

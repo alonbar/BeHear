@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +67,24 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 if (mMap == null) {
                         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 }
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+
+                                                  @Override
+                                                  public View getInfoWindow(Marker marker) {
+                                                          return null;
+                                                  }
+
+                                                  @Override
+                                                  public View getInfoContents(Marker marker) {
+                                                          View view = getLayoutInflater().inflate(R.layout.info_window,null);
+                                                          ImageView coins = (ImageView)view.findViewById(R.id.coins);
+                                                          ImageView school = (ImageView)view.findViewById(R.id.school);
+                                                          ImageView university = (ImageView)view.findViewById(R.id.university);
+                                                          ImageView crime = (ImageView)view.findViewById(R.id.crime);
+                                                          LatLng ll = marker.getPosition();
+                                                          return view;
+                                                  }
+                                          });
                 mapHelper = new MapHelper(getApplicationContext());
                 mapHelper.setData(mMap, currentData, 15);
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -190,6 +209,14 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 }
                         }
                 });
+
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                                marker.hideInfoWindow();
+                        }
+                });
+
 
 mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
