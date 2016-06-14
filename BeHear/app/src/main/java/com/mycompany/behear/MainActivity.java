@@ -3,6 +3,7 @@ package com.mycompany.behear;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -13,10 +14,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -44,6 +49,12 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         CheckBox votesBox;
         CheckBox econBox;
         CheckBox offlineModeBox;
+        //ImageButton aboutBut;
+        Button whatsBut;
+        Button aboutBut;
+        ImageButton aboutSocio;
+        ImageButton aboutVotes;
+        ImageButton aboutExplore;
         static Marker offlineModeMarker = null;
         static boolean offlineModeFlag = false;
         static LatLng offlineMarkerLatLng = null;
@@ -57,6 +68,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
                 offlineModeBox = (CheckBox)findViewById(R.id.offlineMode);
+               // aboutBut = (ImageButton) findViewById(R.id.about);
+                whatsBut = (Button) findViewById(R.id.whats);
+                aboutBut = (Button) findViewById(R.id.about);
+                offlineModeBox = (CheckBox) findViewById(R.id.offlineMode);
                 activityFlag = true;
                 manager = new Manager(getApplicationContext());
                 currentIcons = new ArrayList<>();
@@ -64,32 +79,31 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 if (mMap == null) {
                         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 }
-                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
-                                                  @Override
-                                                  public View getInfoWindow(Marker marker) {
-                                                          return null;
-                                                  }
+                        @Override
+                        public View getInfoWindow(Marker marker) {
+                                return null;
+                        }
 
-                                                  @Override
-                                                  public View getInfoContents(Marker marker) {
-                                                          View view = getLayoutInflater().inflate(R.layout.info_window,null);
-                                                          ImageView coins = (ImageView)view.findViewById(R.id.coins);
-                                                          ImageView school = (ImageView)view.findViewById(R.id.school);
-                                                          ImageView university = (ImageView)view.findViewById(R.id.university);
-                                                          ImageView crime = (ImageView)view.findViewById(R.id.crime);
-                                                          LatLng ll = marker.getPosition();
-                                                          return view;
-                                                  }
-                                          });
+                        @Override
+                        public View getInfoContents(Marker marker) {
+                                View view = getLayoutInflater().inflate(R.layout.info_window, null);
+                                ImageView coins = (ImageView) view.findViewById(R.id.coins);
+                                ImageView school = (ImageView) view.findViewById(R.id.school);
+                                ImageView university = (ImageView) view.findViewById(R.id.university);
+                                ImageView crime = (ImageView) view.findViewById(R.id.crime);
+                                LatLng ll = marker.getPosition();
+                                return view;
+                        }
+                });
                 mapHelper = new MapHelper(getApplicationContext());
                 mapHelper.setMarkers(mMap, currentIcons, 15);
                 mapHelper.setData(mMap, currentData, 15);
 
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
-                }
-                else {
+                } else {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 1);
@@ -191,25 +205,25 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 });
 
 
-mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 
-        @Override
-        public void onMarkerDragStart(Marker marker) {
+                        @Override
+                        public void onMarkerDragStart(Marker marker) {
 
-        }
+                        }
 
-        @Override
-        public void onMarkerDrag(Marker marker) {
-                offlineMarkerLatLng = offlineModeMarker.getPosition();
-                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
-                offlineLifeCycle.execute();
-        }
+                        @Override
+                        public void onMarkerDrag(Marker marker) {
+                                offlineMarkerLatLng = offlineModeMarker.getPosition();
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
+                        }
 
-        @Override
-        public void onMarkerDragEnd(Marker marker) {
-                offlineMarkerLatLng = offlineModeMarker.getPosition();
-        }
-});
+                        @Override
+                        public void onMarkerDragEnd(Marker marker) {
+                                offlineMarkerLatLng = offlineModeMarker.getPosition();
+                        }
+                });
                 Point pnt = manager.getCurrentCoordinate();
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -218,6 +232,42 @@ mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
 //                Daemon d = new Daemon();
 //                d.execute();
 
+                //The about dialog
+                aboutBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                                // Inflate and set the layout for the dialog
+                                builder.setView(inflater.inflate(R.layout.about_dialog, null));
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                        }
+                });
+                whatsBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                                // Inflate and set the layout for the dialog
+                                builder.setView(inflater.inflate(R.layout.whats_dialog, null));
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                        }
+                });
+//
+
+//                aboutSocio.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+//                                // Inflate and set the layout for the dialog
+//                                builder.setView(inflater.inflate(R.layout.about_socio_dialog, null));
+//                                AlertDialog dialog = builder.create();
+//                                dialog.show();
+//                        }
+//                });
         }
 
         @Override
