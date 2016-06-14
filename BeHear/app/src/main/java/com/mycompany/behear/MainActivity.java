@@ -115,14 +115,13 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 mapHelper.setMarkers(mMap, currentIcons, 15);
                 mapHelper.setData(mMap, currentData);
 
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        mapHelper.init();
-                } else {
+                if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 1);
                 }
 
+                mapHelper.init();
 
                 votesBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -268,11 +267,13 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 offlineMarkerLatLng = offlineModeMarker.getPosition();
                         }
                 });
-                Point pnt = manager.getCurrentCoordinate();
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
+
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mMap.setMyLocationEnabled(true);
+                        Point pnt = manager.getCurrentCoordinate();
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
                 }
+
 //                Daemon d = new Daemon();
 //                d.execute();
 
@@ -378,6 +379,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 if (grantResults.length > 0
                                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                                         mapHelper.init();
+                                        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                                                mMap.setMyLocationEnabled(true);
+                                        Point pnt = manager.getCurrentCoordinate();
+                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pnt.getLat(), pnt.getLong()), 15));
                                         // permission was granted, yay! Do the
                                         // contacts-related task you need to do.
 
