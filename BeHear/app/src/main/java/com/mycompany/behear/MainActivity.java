@@ -201,14 +201,17 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeMarker = mMap.addMarker(new MarkerOptions()
                                                 .position(latLng)
                                                 .draggable(true));
-                                        offlineModeMarker.hideInfoWindow();
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                                 @Override
                                                 public boolean onMarkerClick(Marker arg0) {
+
                                                         if (offlineModeMarker.equals(arg0)) {
                                                                 OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                                                 offlineLifeCycle.execute();
+                                                        }
+                                                        else {
+                                                                arg0.showInfoWindow();
                                                         }
                                                         return true;
                                                 }
