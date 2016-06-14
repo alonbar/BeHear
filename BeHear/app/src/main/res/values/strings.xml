@@ -12,7 +12,7 @@
 <string name="app_explanation2">Using BeHear, you can find out on real statistical data on the areas you are passing through, such as socio-econoic status and political votes, through engaging and informative sounds. </string>
     <string name = "app_explanation3"> Each parameter can be heard alone or in combination with the others, and the sounds will be played during your travel using location services. </string>
     <string name = "app_explanation4"> To hear the places without actually passing through them, choose "explore" and explore the map with your finger. </string>
-        <string name= "app_explanation5"> Ready? Just start moving and BeHear.</string>
+    <string name= "app_explanation5"> Ready? Just start moving and BeHear.</string>
     <string name="app_explanation_choice">You can choose to hear these together, or each on alone.</string>
     <string name="develoment2"> BeHear was developed and implemented thanks to the conjoint effort of </string>
     <string name="develoment3"> Alon Bar, Tomer Behor, Inbar Tal and Tzeela Kirshenbaum</string>
