@@ -1,65 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
     >
-    <ImageView
-        android:id="@+id/logoDialog"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/colorPrimary"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/_icon" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/app_explanation"
-        android:id="@+id/app_Exp"
-        android:textAlignment="center"
-        android:layout_below="@id/logoDialog"
-        android:layout_margin="15dp"
-        />
+<ImageView
+    android:id="@+id/logoDialog"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginTop="15dp"
+    android:textColor="@color/colorPrimary"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/_icon" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="@string/app_explanation"
+    android:id="@+id/app_Exp"
+    android:textAlignment="center"
+    android:layout_below="@id/logoDialog"
+    android:layout_margin="15dp"
+    />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/develoment1"
-        android:id="@+id/app_dev1"
-        android:layout_below="@id/app_Exp"
-        android:textAlignment="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/develoment2"
-        android:id="@+id/app_dev2"
-        android:layout_below="@id/app_dev1"
-        android:textAlignment="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        android:text="@string/develoment3"
-        android:id="@+id/app_dev3"
-        android:layout_below="@id/app_dev2"
-        android:textAlignment="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/develoment4"
-        android:id="@+id/app_dev4"
-        android:layout_below="@id/app_dev3"
-        android:layout_margin="15dp"
-        android:textAlignment="center"/>
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/develoment1"
+    android:id="@+id/app_dev1"
+    android:layout_below="@id/app_Exp"
+    android:textAlignment="center"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/develoment2"
+    android:id="@+id/app_dev2"
+    android:layout_below="@id/app_dev1"
+    android:textAlignment="center"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:textStyle="bold"
+    android:layout_marginTop="15dp"
+    android:text="@string/develoment3"
+    android:id="@+id/app_dev3"
+    android:layout_below="@id/app_dev2"
+    android:textAlignment="center"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/develoment4"
+    android:id="@+id/app_dev4"
+    android:layout_below="@id/app_dev3"
+    android:layout_margin="15dp"
+    android:textAlignment="center"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/develoment5"
+    android:id="@+id/app_dev5"
+    android:layout_below="@id/app_dev4"
+    android:textAlignment="center"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="@string/develoment6"
+    android:id="@+id/app_dev6"
+    android:layout_below="@id/app_dev5"
+    android:textAlignment="center"/>
 </RelativeLayout>

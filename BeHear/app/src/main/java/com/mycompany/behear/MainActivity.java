@@ -254,6 +254,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
 //                Daemon d = new Daemon();
 //                d.execute();
 
+                //The about dialog
                 aboutBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -261,6 +262,17 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
                                 // Inflate and set the layout for the dialog
                                 builder.setView(inflater.inflate(R.layout.about_dialog, null));
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                        }
+                });
+                whatsBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                                // Inflate and set the layout for the dialog
+                                builder.setView(inflater.inflate(R.layout.whats_dialog, null));
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                         }
