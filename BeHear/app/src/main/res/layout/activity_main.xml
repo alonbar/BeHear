@@ -10,14 +10,21 @@
     tools:context="com.mycompany.behear.MainActivity">
 
 
-    <TextView
-        android:id="@+id/logo"
-        android:layout_width="fill_parent"
+    <!--<TextView-->
+        <!--android:id="@+id/logo"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:typeface="monospace"-->
+        <!--android:src="@drawable/title"-->
+        <!--android:layout_weight="0.13"-->
+        <!--/>-->
+
+     <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:typeface="monospace"
-        android:text="BeHear"
-        android:layout_weight="0.13"
+        android:id="@+id/logo"
+        android:src="@drawable/title"
         />
 
 
@@ -44,21 +51,16 @@
             android:text="@string/offlineMode"
         android:layout_above="@+id/checkbox_socio"
         android:layout_alignRight="@+id/map"
-        android:layout_alignEnd="@+id/map" />
+        android:layout_alignEnd="@+id/map"
+        android:layout_marginRight="11dp"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"/>
 
     <CheckBox android:id="@+id/checkbox_socio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/socio"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="33dp" />
-
-    <CheckBox android:id="@+id/checkbox_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edu"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -69,6 +71,10 @@
         android:text="@string/votes"
         android:layout_above="@+id/checkbox_socio"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"/>
+
+    
 
 </RelativeLayout>
