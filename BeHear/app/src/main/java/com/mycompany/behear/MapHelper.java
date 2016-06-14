@@ -35,7 +35,7 @@ import static com.google.android.gms.internal.zzir.runOnUiThread;
 public class MapHelper {
 
     private Context context;
-    private LocationManager locationManager;
+    public static LocationManager locationManager;
     private float previousZoomLevel = -1.0f;
     private boolean isZooming = false;
     LocationListener locationListener;
@@ -107,7 +107,9 @@ public class MapHelper {
     public Point getCurrentCooredinate() {
 
         if (ContextCompat.checkSelfPermission(this.context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
+            if (locationManager==null) {
+                return new Point (-74.005941, 40.712784);
+            }
             Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (current == null){
 
