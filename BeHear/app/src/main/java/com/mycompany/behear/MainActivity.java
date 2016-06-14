@@ -57,6 +57,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         ImageButton aboutSocio;
         ImageButton aboutVotes;
         ImageButton aboutExplore;
+        ImageButton aboutCrime;
+
         static Marker offlineModeMarker = null;
         static boolean offlineModeFlag = false;
         static LatLng offlineMarkerLatLng = null;
@@ -76,6 +78,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 aboutSocio = (ImageButton) findViewById(R.id.socio_qm);
                 aboutVotes = (ImageButton) findViewById(R.id.votes_qm);
                 aboutExplore = (ImageButton) findViewById(R.id.explore_qm);
+                aboutCrime = (ImageButton) findViewById(R.id.crime_qm);
                 offlineModeBox = (CheckBox) findViewById(R.id.offlineMode);
                 activityFlag = true;
                 manager = new Manager(getApplicationContext());
@@ -305,6 +308,18 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
                                 // Inflate and set the layout for the dialog
                                 builder.setView(inflater.inflate(R.layout.socio_dialog, null));
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                        }
+                });
+
+                aboutCrime.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                                // Inflate and set the layout for the dialog
+                                builder.setView(inflater.inflate(R.layout.crime_dialog, null));
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                         }

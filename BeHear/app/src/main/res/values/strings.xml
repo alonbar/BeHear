@@ -26,5 +26,6 @@
     <string name="sexual">sexual harassment</string>
     <string name="property">property \n crime</string>
     <string name="app_explanation_explore">Choose \"explore\" in order to navigate in Jerusalem with your finger. This will enable you to place a marker on a chosen area of Jerusalem and hear the data you chose to hear. By Holding and dragging the marker you can hear the changes in the parameters of the area under your finger.</string>
-
+    <string name = "app_explanation_crime">By pressing here, BeHear will play the crime that was reported to the police on a specific area during 2015</string>
+    <string name = "app_explanation_crime_from">Data is taken from the Central Elections Committee.</string>
 </resources>

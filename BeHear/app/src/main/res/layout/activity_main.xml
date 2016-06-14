@@ -134,7 +134,8 @@
         android:layout_alignBottom="@+id/votes_qm"
         android:layout_toRightOf="@+id/offlineMode"
         android:layout_alignTop="@+id/votes_qm"
-        android:paddingTop="20px"/>
+        android:paddingTop="20px"
+        />
 
     <CheckBox android:id="@+id/check_box_property_crime"
         android:layout_width="wrap_content"
@@ -145,7 +146,8 @@
         android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_below="@+id/map"
         android:layout_toRightOf="@+id/socio_qm"
-        android:layout_toEndOf="@+id/socio_qm" />
+        android:layout_toEndOf="@+id/socio_qm"
+        android:gravity = "center"/>
 
     <ImageButton
         android:layout_width="20dp"
