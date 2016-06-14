@@ -71,27 +71,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/offlineMode"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/checkbox_data"
-        android:layout_alignStart="@+id/checkbox_data" />
+        android:layout_above="@+id/checkbox_socio"
+        android:layout_alignRight="@+id/map"
+        android:layout_alignEnd="@+id/map"
+        android:layout_marginRight="11dp"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"/>
 
     <CheckBox android:id="@+id/checkbox_socio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/socio"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <CheckBox android:id="@+id/checkbox_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edu"
-        android:layout_above="@+id/offlineMode"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="94dp"
-        android:layout_marginEnd="94dp" />
 
     <CheckBox android:id="@+id/checkbox_votes"
         android:layout_width="wrap_content"
@@ -99,7 +93,11 @@
         android:text="@string/votes"
         android:layout_above="@+id/checkbox_socio"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"/>
+
+    
 
 
 </RelativeLayout>

@@ -210,7 +210,7 @@ public class Manager {
                             @Override
                             public void run() {
                                 Toast.makeText(context, "The application requires you to be in Jerusalem",
-                                        Toast.LENGTH_LONG).show();
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                     }}.start();
