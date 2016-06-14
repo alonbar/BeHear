@@ -23,5 +23,8 @@
     <string name="app_explanation_socio_from"> Data is taken from the Central Bureau of Statistics of Israel</string>
     <string name="app_explanation_votes"> By pressing here, BeHear will play the votes in the last elections of the different areas by speeches of politicians heading most elected party in this area.</string>
     <string name="app_explanation_votes_from">Data is taken from the Central Elections Committee. </string>
+    <string name="sexual">sexual harassment</string>
+    <string name="property">property \n crime</string>
     <string name="app_explanation_explore">Choose \"explore\" in order to navigate in Jerusalem with your finger. This will enable you to place a marker on a chosen area of Jerusalem and hear the data you chose to hear. By Holding and dragging the marker you can hear the changes in the parameters of the area under your finger.</string>
+
 </resources>

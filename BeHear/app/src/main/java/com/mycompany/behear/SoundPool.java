@@ -4,11 +4,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Pair;
-import android.widget.ArrayAdapter;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +18,7 @@ public class SoundPool {
     HashMap<Pair<Parameters,Integer>, ArrayList<Pair<Parameters,MediaPlayer>>> pool;
     Context context;
     private Random randomGenerator;
-    static int seconds = 10;
+    static int seconds = 20;
 
     public SoundPool(Context context) {
         pool = new HashMap<>();
@@ -50,19 +47,19 @@ public class SoundPool {
         //playing sound
         final MediaPlayer currentSound = soundsList.get(this.randomGenerator.nextInt(soundsList.size()));
         currentSound.start();
-        if (!isPoliticsParam(param)) {
-            Handler mHandler = new Handler(Looper.getMainLooper());
-            mHandler.postDelayed(new Runnable() {
-                public void run() {
-                    try {
-                        currentSound.pause();
-                        currentSound.seekTo(0);
-                    }catch(Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, seconds * 1000);
-        }
+//        if (!isPoliticsParam(param)) {
+//            Handler mHandler = new Handler(Looper.getMainLooper());
+//            mHandler.postDelayed(new Runnable() {
+//                public void run() {
+//                    try {
+//                        currentSound.pause();
+//                        currentSound.seekTo(0);
+//                    }catch(Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }, seconds * 1000);
+//        }
     }
 
 
@@ -73,7 +70,7 @@ public class SoundPool {
             poolSoundsList = pool.get(Pair.create(Parameters.politics, level));
         else
             poolSoundsList = pool.get(Pair.create(param, level));
-        if (param == Parameters.politics || param == Parameters.econ || param == Parameters.education) {
+        if (param == Parameters.politics || param == Parameters.econ || param == Parameters.property_crime) {
             for (int i = 0; i < poolSoundsList.size(); i++) {
                 list.add(poolSoundsList.get(i).second);
             }
@@ -151,7 +148,7 @@ public class SoundPool {
 
     private void add(Parameters param, int level) {
         Field[] fields = R.raw.class.getFields();
-        for (int i = 0; i < fields.length - 1; i++) {
+        for (int i = 0; i < fields.length; i++) {
             String fileName = fields[i].getName();
             this.context.getSystemService(Context.AUDIO_SERVICE);
             if (should_add_politics(fileName, level, param)) {
@@ -166,7 +163,7 @@ public class SoundPool {
                     pool.get(Pair.create(Parameters.politics, level)).add(Pair.create(Parameters.politics, mp));
                 }
             }
-            else if (shouldAddEcon(fileName, level, param) || shouldAddEdu(fileName, level, param) ) {
+            else if (shouldAddEcon(fileName, level, param) || shouldAddPropertyCrime(fileName, level, param) ) {
                 if (!pool.containsKey(Pair.create(param, level)))
                     pool.put(Pair.create(param, level), new ArrayList<Pair<Parameters, MediaPlayer>>());
                 MediaPlayer mp = MediaPlayer.create(this.context, context.getResources().getIdentifier(fileName, "raw", this.context.getPackageName()));
@@ -232,9 +229,9 @@ public class SoundPool {
                 (Integer.valueOf(fileName.substring(fileName.length() - 1)) == level));
     }
 
-    private boolean shouldAddEdu (String fileName, int level, Parameters param) {
-        return (param == Parameters.education &&
-                fileName.startsWith("edu_") &&
+    private boolean shouldAddPropertyCrime(String fileName, int level, Parameters param) {
+        return (param == Parameters.property_crime &&
+                fileName.startsWith("property_") &&
                 (Integer.valueOf(fileName.substring(fileName.length() - 1)) == level));
     }
 

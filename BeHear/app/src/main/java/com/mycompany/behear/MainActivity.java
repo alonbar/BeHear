@@ -48,6 +48,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         boolean activityFlag;
         CheckBox votesBox;
         CheckBox econBox;
+        CheckBox sexualHarassmentBox;
+        CheckBox propertyCrimeBox;
         CheckBox offlineModeBox;
         //ImageButton aboutBut;
         Button whatsBut;
@@ -67,7 +69,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 setContentView(R.layout.activity_main);
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
-                offlineModeBox = (CheckBox)findViewById(R.id.offlineMode);
+                propertyCrimeBox = (CheckBox)findViewById(R.id.check_box_property_crime);
                // aboutBut = (ImageButton) findViewById(R.id.about);
                 whatsBut = (Button) findViewById(R.id.whats);
                 aboutBut = (Button) findViewById(R.id.about);
@@ -92,17 +94,21 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         @Override
                         public View getInfoContents(Marker marker) {
                                 View view = getLayoutInflater().inflate(R.layout.info_window, null);
-                                ImageView coins = (ImageView) view.findViewById(R.id.coins);
-                                ImageView school = (ImageView) view.findViewById(R.id.school);
-                                ImageView university = (ImageView) view.findViewById(R.id.university);
-                                ImageView crime = (ImageView) view.findViewById(R.id.crime);
-                                LatLng ll = marker.getPosition();
-                                return view;
+                              TextView crimeText = (TextView)view.findViewById(R.id.crimeText);
+                              TextView schoolText = (TextView)view.findViewById(R.id.schoolText);
+                              TextView coinsText = (TextView)view.findViewById(R.id.coinsText);
+                              String data = marker.getTitle();
+                              String[] parsedData = data.split(" ");
+                              coinsText.setText(parsedData[0]);
+                              schoolText.setText(parsedData[1]);
+                              crimeText.setText(parsedData[2]);
+                              return view;
+
                         }
                 });
                 mapHelper = new MapHelper(getApplicationContext());
                 mapHelper.setMarkers(mMap, currentIcons, 15);
-                mapHelper.setData(mMap, currentData, 15);
+                mapHelper.setData(mMap, currentData);
 
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
@@ -152,6 +158,21 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         }
                 });
 
+                propertyCrimeBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                        propertyCrimeBox.setChecked(true);
+                                        Manager.propertyBoxFlag= true;
+                                } else {
+                                        propertyCrimeBox.setChecked(false);
+                                        Manager.propertyBoxFlag= false;
+                                }
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
+                        }
+                });
+
 
                 offlineModeBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -164,7 +185,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeBox.setChecked(false);
                                         offlineModeFlag = false;
                                 }
-
+                                if (offlineModeMarker != null)
+                                        offlineModeMarker.setVisible(isChecked);
                         }
                 });
 
@@ -179,7 +201,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeMarker = mMap.addMarker(new MarkerOptions()
                                                 .position(latLng)
                                                 .draggable(true));
-                                        offlineModeMarker.showInfoWindow();
+                                        offlineModeMarker.hideInfoWindow();
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                                 @Override
@@ -196,6 +218,16 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                         offlineLifeCycle.execute();
+                                }
+                        }
+                });
+
+                mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                        @Override
+                        public void onCameraChange(CameraPosition cameraPosition) {
+                                boolean visability = (cameraPosition.zoom > 14);
+                                for (Marker marker : currentData) {
+                                        marker.setVisible(visability);
                                 }
                         }
                 });

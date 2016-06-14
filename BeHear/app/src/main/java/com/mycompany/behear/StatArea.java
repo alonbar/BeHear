@@ -81,11 +81,40 @@ public class StatArea {
         }
     }
 
-    public String getData(){
-        String str = "Economic status: " + this.socio / 4 + "\n"; //socio: 1-20. 20- higher.
-        str += "School graduates percentage: " + this.schoolGraduate + "\n";
-        str += "University graduates percentage: " + this.uniGraduate + "\n";
-        return str;
+    public String[] getData(){
+        String socio;
+        String school;
+        String crime;
+        if(this.socio > 10) {
+            socio = "High";
+        }else if(this.socio > 5 && this.socio < 10) {
+            socio = "Mid";
+        }else if(this.socio < 5 && this.socio > 0) {
+            socio = "Low";
+        }else {
+            socio = "Unknown";
+        }
+
+        if(this.schoolGraduate > 75){
+            school = "High";
+        }else if(this.schoolGraduate < 75 && this.schoolGraduate > 40){
+            school = "Mid";
+        }else if(this.schoolGraduate < 40 && this.schoolGraduate > 0){
+            school = "Low";
+        }else{
+            school = "Unknown";
+        }
+
+        if(this.propertyCrimeCount > 100){
+            crime = "High";
+        }else if(this.propertyCrimeCount < 100 && this.propertyCrimeCount > 40){
+            crime = "Mid";
+        }else{
+            crime = "Low";
+        }
+
+        String []data = {socio, school, crime};// {this.socio / 4,this.schoolGraduate,this.uniGraduate};
+        return data;
     }
 
 

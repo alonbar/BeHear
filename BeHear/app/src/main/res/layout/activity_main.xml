@@ -115,6 +115,27 @@
         android:text="@string/offlineMode"
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_above="@+id/socio_qm"
+        android:layout_toRightOf="@+id/check_box_property_crime"
+        android:layout_toEndOf="@+id/check_box_property_crime" />
+
+    <!--<CheckBox android:id="@+id/check_box_sexual_harassment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/sexual"-->
+        <!--android:checked="false"-->
+        <!--android:buttonTint="@color/common_plus_signin_btn_text_light"-->
+        <!--android:layout_alignBottom="@+id/offlineMode"-->
+        <!--android:layout_centerHorizontal="true" />-->
+
+    <CheckBox android:id="@+id/check_box_property_crime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/property"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_above="@+id/checkbox_socio"
         android:layout_centerHorizontal="true" />
 
@@ -123,11 +144,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/qm"
         android:id="@+id/explore_qm"
-        android:layout_alignBottom="@id/offlineMode"
-        android:layout_toRightOf="@id/offlineMode"
-        android:layout_alignTop="@id/offlineMode"
-        android:layout_margin="5dp"
-         />
+        android:layout_alignBottom="@+id/votes_qm"
+        android:layout_toRightOf="@+id/offlineMode"
+        android:layout_alignTop="@+id/votes_qm" />
 
 
 </RelativeLayout>

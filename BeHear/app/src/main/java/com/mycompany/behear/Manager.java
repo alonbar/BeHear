@@ -32,8 +32,9 @@ public class Manager {
     public SoundManager soundManager;
     static boolean votesBoxFlag;
     static boolean econBoxFlag;
-    static boolean eduBoxFlag;
-
+    static boolean propertyBoxFlag;
+    static boolean sexualBoxFlag;
+    Toast toast;
     public Manager(Context context) {
         mapHelper = new MapHelper(context);
         mapHelper.init();
@@ -174,7 +175,7 @@ public class Manager {
         if (curretArea != null) {
             int currentEconStatus = curretArea.getEcon();
             String currentParty = curretArea.getClosestKalpi(pnt).toLowerCase();
-
+            int currentPropertyCrimeCount = curretArea.getPropertyCrimeCount();
             if (votesBoxFlag && !currentParty.equals(""))
                 soundManager.playSound(Parameters.politics, currentParty.hashCode());
             if (econBoxFlag && currentEconStatus != -1) {
@@ -190,27 +191,49 @@ public class Manager {
                     } else if (currentEconStatus >= 16 && currentEconStatus <= 19) {
                         newStatus = 0;
                     }
+
                     if (econBoxFlag)
                         soundManager.playSound(Parameters.econ, newStatus);
             }
+
+            if (propertyBoxFlag) {
+                int newStatus = 0;
+                if (currentPropertyCrimeCount > 40 && currentEconStatus <= 100) {
+                    newStatus = 1;
+                } else if (currentEconStatus > 10 && currentEconStatus <= 11) {
+                    newStatus = 2;
+                }
+                soundManager.playSound(Parameters.property_crime, newStatus);
+            }
+
+
 
             if (!votesBoxFlag)
                 soundManager.stopSound(Parameters.politics);
             if (!econBoxFlag)
                 soundManager.stopSound(Parameters.econ);
-            if (!eduBoxFlag)
-                soundManager.stopSound(Parameters.education);
+            if (!propertyBoxFlag)
+                soundManager.stopSound(Parameters.property_crime);
         }
         else {
             soundManager.stopSound(Parameters.politics);
             soundManager.stopSound(Parameters.econ);
+            soundManager.stopSound(Parameters.property_crime);
             new Thread() {
                 public void run() {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(context, "The application requires you to be in Jerusalem",
-                                        Toast.LENGTH_SHORT).show();
+                                if (toast == null) {
+                                    toast =  Toast.makeText(context, "The application requires you to be in Jerusalem",
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                                else if (!toast.getView().isShown()){
+                                     toast = Toast.makeText(context, "The application requires you to be in Jerusalem",
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
                             }
                         });
                     }}.start();
