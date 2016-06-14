@@ -163,7 +163,7 @@ public class MapHelper {
             currentIcons = new ArrayList<>();
             for (Kalpi kalpi: StatArea.kalpiList) {
                 currentIcons.add(mMap.addMarker(new MarkerOptions().position(new LatLng(kalpi.getPoint().getLat(), kalpi.getPoint().getLong()))
-                        .title("partyIcon").icon(BitmapDescriptorFactory.fromResource(getIcon(kalpi.getPopolarParty())))));
+                        .icon(BitmapDescriptorFactory.fromResource(getIcon(kalpi.getPopolarParty())))));
                 currentIcons.get(currentIcons.size() -1 ).setVisible(false);
             }
     }

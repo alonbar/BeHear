@@ -93,7 +93,9 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
 
                         @Override
                         public View getInfoContents(Marker marker) {
-                                View view = getLayoutInflater().inflate(R.layout.info_window, null);
+                              if (marker.getTitle() == null)
+                                      return null;
+                              View view = getLayoutInflater().inflate(R.layout.info_window, null);
                               TextView crimeText = (TextView)view.findViewById(R.id.crimeText);
                               TextView schoolText = (TextView)view.findViewById(R.id.schoolText);
                               TextView coinsText = (TextView)view.findViewById(R.id.coinsText);
@@ -211,7 +213,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                                                 offlineLifeCycle.execute();
                                                         }
                                                         else {
-                                                                arg0.showInfoWindow();
+                                                                if (arg0.getTitle() != null)
+                                                                        arg0.showInfoWindow();
                                                         }
                                                         return true;
                                                 }
