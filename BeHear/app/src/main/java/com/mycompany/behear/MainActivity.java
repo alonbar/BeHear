@@ -48,6 +48,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         boolean activityFlag;
         CheckBox votesBox;
         CheckBox econBox;
+        CheckBox sexualHarassmentBox;
+        CheckBox propertyCrimeBox;
         CheckBox offlineModeBox;
         //ImageButton aboutBut;
         Button whatsBut;
@@ -67,7 +69,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                 setContentView(R.layout.activity_main);
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
-                offlineModeBox = (CheckBox)findViewById(R.id.offlineMode);
+                propertyCrimeBox = (CheckBox)findViewById(R.id.check_box_property_crime);
                // aboutBut = (ImageButton) findViewById(R.id.about);
                 whatsBut = (Button) findViewById(R.id.whats);
                 aboutBut = (Button) findViewById(R.id.about);
@@ -149,6 +151,21 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         }
                 });
 
+                propertyCrimeBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                        propertyCrimeBox.setChecked(true);
+                                        Manager.propertyBoxFlag= true;
+                                } else {
+                                        propertyCrimeBox.setChecked(false);
+                                        Manager.propertyBoxFlag= false;
+                                }
+                                OfflineDaemon offlineLifeCycle = new OfflineDaemon();
+                                offlineLifeCycle.execute();
+                        }
+                });
+
 
                 offlineModeBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -161,7 +178,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeBox.setChecked(false);
                                         offlineModeFlag = false;
                                 }
-
+                                if (offlineModeMarker != null)
+                                        offlineModeMarker.setVisible(isChecked);
                         }
                 });
 
@@ -193,6 +211,16 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         OfflineDaemon offlineLifeCycle = new OfflineDaemon();
                                         offlineLifeCycle.execute();
+                                }
+                        }
+                });
+
+                mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                        @Override
+                        public void onCameraChange(CameraPosition cameraPosition) {
+                                boolean visability = (cameraPosition.zoom > 14);
+                                for (Marker marker : currentData) {
+                                        marker.setVisible(visability);
                                 }
                         }
                 });

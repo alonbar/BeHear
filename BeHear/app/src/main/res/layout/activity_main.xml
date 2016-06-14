@@ -100,7 +100,22 @@
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"/>
 
-    
+    <!--<CheckBox android:id="@+id/check_box_sexual_harassment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/sexual"-->
+        <!--android:checked="false"-->
+        <!--android:buttonTint="@color/common_plus_signin_btn_text_light"-->
+        <!--android:layout_alignBottom="@+id/offlineMode"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
+    <CheckBox android:id="@+id/check_box_property_crime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/property"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
+        android:layout_above="@+id/checkbox_socio"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
