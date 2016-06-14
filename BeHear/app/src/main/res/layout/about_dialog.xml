@@ -22,15 +22,7 @@ android:layout_height="match_parent"
     android:layout_margin="15dp"
     />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:textAppearance="?android:attr/textAppearanceSmall"
-    android:text="@string/develoment1"
-    android:id="@+id/app_dev1"
-    android:layout_below="@id/app_Exp"
-    android:textAlignment="center"/>
+
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -38,7 +30,7 @@ android:layout_height="match_parent"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:text="@string/develoment2"
     android:id="@+id/app_dev2"
-    android:layout_below="@id/app_dev1"
+    android:layout_below="@id/app_Exp"
     android:textAlignment="center"/>
 <TextView
     android:layout_width="wrap_content"
