@@ -14,8 +14,7 @@
     <string name = "app_explanation4"> To hear the places without actually passing through them, choose "explore" and explore the map with your finger. </string>
         <string name= "app_explanation5"> Ready? Just start moving and BeHear.</string>
     <string name="app_explanation_choice">You can choose to hear these together, or each on alone.</string>
-    <string name="develoment1"> BeHear was initialy conceptualized by Tomer Behor in the \"Visualiation and Sonification\" course led by Dr. Michael Fink</string>
-    <string name="develoment2"> and was developed and implemented thanks to the conjoint effort of </string>
+    <string name="develoment2"> BeHear was developed and implemented thanks to the conjoint effort of </string>
     <string name="develoment3"> Alon Bar, Tomer Behor, Inbar Tal and Tzeela Kirshenbaum</string>
     <string name="develoment4"> Under the supervision of Prof. Yair Bartal and Eran Erlich as a final work for the course \"On the Spectrum Between Science, Art and Technology\" (2016) </string>
     <string name="develoment5"> For suggestions and feedback: </string>
