@@ -10,46 +10,44 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:id="@+id/bar"
-
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/whats"
-            android:textStyle="italic"
+            android:textSize="10dp"
             android:text="@string/whats"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:background="@null"
 
             />
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/logo_small"
-            android:layout_toRightOf="@id/whats"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:id="@+id/about"
-            android:textStyle="italic"
             android:text="@string/about"
             android:clickable="true"
+            android:textSize="10dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            />
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -60,25 +58,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_below="@id/bar"
-        android:layout_marginTop="20dp"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         map:mapType="normal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/checkbox_votes" />
+        android:layout_above="@+id/checkbox_votes"
+        android:layout_below="@+id/bar" />
 
-    <CheckBox android:id="@+id/offlineMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/offlineMode"
-        android:layout_above="@+id/checkbox_socio"
-        android:layout_alignRight="@+id/map"
-        android:layout_alignEnd="@+id/map"
-        android:layout_marginRight="11dp"
-        android:buttonTint="@color/common_plus_signin_btn_text_light"/>
 
     <CheckBox android:id="@+id/checkbox_socio"
             android:layout_width="wrap_content"
@@ -89,6 +77,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qm"
+        android:id="@+id/socio_qm"
+        android:layout_alignTop="@+id/checkbox_socio"
+        android:layout_toRightOf="@+id/checkbox_socio"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/checkbox_socio"
+        android:layout_margin="5dp"/>
 
     <CheckBox android:id="@+id/checkbox_votes"
         android:layout_width="wrap_content"
@@ -99,6 +97,29 @@
         android:layout_alignParentStart="true"
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"/>
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qm"
+        android:id="@+id/votes_qm"
+        android:layout_alignTop="@+id/checkbox_votes"
+        android:layout_toRightOf="@+id/checkbox_votes"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/checkbox_votes"
+        android:layout_margin="5dp"/>
+
+    <CheckBox
+        android:id="@+id/offlineMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/offlineMode"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_above="@+id/socio_qm"
+        android:layout_toRightOf="@+id/check_box_property_crime"
+        android:layout_toEndOf="@+id/check_box_property_crime" />
 
     <!--<CheckBox android:id="@+id/check_box_sexual_harassment"-->
         <!--android:layout_width="wrap_content"-->
@@ -117,5 +138,15 @@
         android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_above="@+id/checkbox_socio"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qm"
+        android:id="@+id/explore_qm"
+        android:layout_alignBottom="@+id/votes_qm"
+        android:layout_toRightOf="@+id/offlineMode"
+        android:layout_alignTop="@+id/votes_qm" />
+
 
 </RelativeLayout>

@@ -207,14 +207,18 @@ public class Manager {
             }
 
 
+
             if (!votesBoxFlag)
                 soundManager.stopSound(Parameters.politics);
             if (!econBoxFlag)
                 soundManager.stopSound(Parameters.econ);
+            if (!propertyBoxFlag)
+                soundManager.stopSound(Parameters.property_crime);
         }
         else {
             soundManager.stopSound(Parameters.politics);
             soundManager.stopSound(Parameters.econ);
+            soundManager.stopSound(Parameters.property_crime);
             new Thread() {
                 public void run() {
                         runOnUiThread(new Runnable() {
