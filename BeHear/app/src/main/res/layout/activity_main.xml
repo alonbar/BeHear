@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        android:id="@+id/bar"
-        >
+        android:id="@+id/bar">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +50,6 @@
 
     </RelativeLayout>
 
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
@@ -67,16 +65,16 @@
         android:layout_above="@+id/checkbox_votes"
         android:layout_below="@+id/bar" />
 
-
     <CheckBox android:id="@+id/checkbox_socio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/socio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/socio"
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
     <ImageButton
         android:layout_width="20dp"
         android:layout_height="wrap_content"
@@ -86,7 +84,9 @@
         android:layout_toRightOf="@+id/checkbox_socio"
         android:layout_marginLeft="10dp"
         android:layout_alignBottom="@+id/checkbox_socio"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:paddingTop="10px"/>
+
 
     <CheckBox android:id="@+id/checkbox_votes"
         android:layout_width="wrap_content"
@@ -95,6 +95,7 @@
         android:layout_above="@+id/checkbox_socio"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:paddingTop="10px"
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"/>
 
@@ -107,8 +108,9 @@
         android:layout_toRightOf="@+id/checkbox_votes"
         android:layout_marginLeft="10dp"
         android:layout_alignBottom="@+id/checkbox_votes"
-
+        android:paddingTop="10px"
         android:layout_margin="5dp"/>
+
 
     <CheckBox
         android:id="@+id/offlineMode"
@@ -117,29 +119,12 @@
         android:text="@string/offlineMode"
         android:checked="false"
         android:buttonTint="@color/common_plus_signin_btn_text_light"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_above="@+id/socio_qm"
-        android:layout_toRightOf="@+id/check_box_property_crime"
-        android:layout_toEndOf="@+id/check_box_property_crime" />
-
-    <!--<CheckBox android:id="@+id/check_box_sexual_harassment"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sexual"-->
-        <!--android:checked="false"-->
-        <!--android:buttonTint="@color/common_plus_signin_btn_text_light"-->
-        <!--android:layout_alignBottom="@+id/offlineMode"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
-    <CheckBox android:id="@+id/check_box_property_crime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/property"
-        android:checked="false"
-        android:buttonTint="@color/common_plus_signin_btn_text_light"
-        android:layout_above="@+id/checkbox_socio"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:paddingRight="10px"
+        android:layout_alignTop="@+id/explore_qm"
+        android:layout_toRightOf="@+id/crime_qm"
+        android:layout_toEndOf="@+id/crime_qm" />
 
     <ImageButton
         android:layout_width="20dp"
@@ -148,7 +133,30 @@
         android:id="@+id/explore_qm"
         android:layout_alignBottom="@+id/votes_qm"
         android:layout_toRightOf="@+id/offlineMode"
-        android:layout_alignTop="@+id/votes_qm" />
+        android:layout_alignTop="@+id/votes_qm"
+        android:paddingTop="20px"/>
+
+    <CheckBox android:id="@+id/check_box_property_crime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/property"
+        android:paddingTop="20px"
+        android:checked="false"
+        android:buttonTint="@color/common_plus_signin_btn_text_light"
+        android:layout_below="@+id/map"
+        android:layout_toRightOf="@+id/socio_qm"
+        android:layout_toEndOf="@+id/socio_qm" />
+
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qm"
+        android:id="@+id/crime_qm"
+        android:layout_alignBottom="@+id/votes_qm"
+        android:layout_toRightOf="@+id/check_box_property_crime"
+        android:layout_alignTop="@+id/votes_qm"
+        android:paddingTop="20px"/>
+
 
 
 </RelativeLayout>
