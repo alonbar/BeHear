@@ -148,7 +148,7 @@ public class SoundPool {
 
     private void add(Parameters param, int level) {
         Field[] fields = R.raw.class.getFields();
-        for (int i = 0; i < fields.length - 1; i++) {
+        for (int i = 0; i < fields.length; i++) {
             String fileName = fields[i].getName();
             this.context.getSystemService(Context.AUDIO_SERVICE);
             if (should_add_politics(fileName, level, param)) {
