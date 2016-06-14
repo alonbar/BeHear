@@ -9,31 +9,47 @@
     tools:context="com.mycompany.behear.MainActivity">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/bar"
 
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/whats"
+            android:textStyle="italic"
+            android:text="@string/whats"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+
+            />
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/logo_small"
-            android:layout_centerHorizontal="true"/>
-        <ImageButton
+            android:layout_toRightOf="@id/whats"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
             android:id="@+id/about"
-            android:background="@drawable/qm"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_above="@+id/map"
+            android:textStyle="italic"
+            android:text="@string/about"
+            android:clickable="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/bar"
-            android:layout_toEndOf="@+id/bar"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            />
 
     </RelativeLayout>
 
