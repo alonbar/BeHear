@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
@@ -25,6 +26,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.jar.Manifest;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
@@ -165,12 +168,15 @@ public class MapHelper {
             }
     }
 
-    public void setData(GoogleMap mMap, ArrayList<Marker> currnetData, float zoom){
-        if (currnetData == null)
-            currnetData = new ArrayList<>();
+    public void setData(GoogleMap mMap, ArrayList<Marker> currentData){
+        String[] curStatData;
+        if(currentData == null)
+            currentData = new ArrayList<>();
         for(StatArea stat : MainActivity.statAreaTable.values()){
-            currnetData.add(mMap.addMarker(new MarkerOptions().position(new LatLng(stat.getPolygon().getCenter().getLat() , stat.getPolygon().getCenter().getLong()))
-                    .title("info").icon(BitmapDescriptorFactory.fromResource(R.drawable.sign)).snippet(stat.getData())));
+            curStatData = stat.getData();
+            currentData.add(mMap.addMarker(new MarkerOptions().position(new LatLng(stat.getPolygon().getCenter().getLat(), stat.getPolygon().getCenter().getLong()))
+                    .title(curStatData[0] + " " + curStatData[1] + " " + curStatData[2]).icon(BitmapDescriptorFactory.fromResource(R.drawable.sign))));
+
         }
     }
 

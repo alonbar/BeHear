@@ -94,17 +94,21 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                         @Override
                         public View getInfoContents(Marker marker) {
                                 View view = getLayoutInflater().inflate(R.layout.info_window, null);
-                                ImageView coins = (ImageView) view.findViewById(R.id.coins);
-                                ImageView school = (ImageView) view.findViewById(R.id.school);
-                                ImageView university = (ImageView) view.findViewById(R.id.university);
-                                ImageView crime = (ImageView) view.findViewById(R.id.crime);
-                                LatLng ll = marker.getPosition();
-                                return view;
+                              TextView crimeText = (TextView)view.findViewById(R.id.crimeText);
+                              TextView schoolText = (TextView)view.findViewById(R.id.schoolText);
+                              TextView coinsText = (TextView)view.findViewById(R.id.coinsText);
+                              String data = marker.getTitle();
+                              String[] parsedData = data.split(" ");
+                              coinsText.setText(parsedData[0]);
+                              schoolText.setText(parsedData[1]);
+                              crimeText.setText(parsedData[2]);
+                              return view;
+
                         }
                 });
                 mapHelper = new MapHelper(getApplicationContext());
                 mapHelper.setMarkers(mMap, currentIcons, 15);
-                mapHelper.setData(mMap, currentData, 15);
+                mapHelper.setData(mMap, currentData);
 
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mapHelper.init();
@@ -197,7 +201,7 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                         offlineModeMarker = mMap.addMarker(new MarkerOptions()
                                                 .position(latLng)
                                                 .draggable(true));
-                                        offlineModeMarker.showInfoWindow();
+                                        offlineModeMarker.hideInfoWindow();
                                         offlineMarkerLatLng = offlineModeMarker.getPosition();
                                         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                                 @Override
