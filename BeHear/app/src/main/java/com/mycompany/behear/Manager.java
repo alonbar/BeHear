@@ -196,14 +196,15 @@ public class Manager {
                         soundManager.playSound(Parameters.econ, newStatus);
             }
 
-            if (propertyBoxFlag) {
-                int newStatus = 0;
-                if (currentPropertyCrimeCount > 40 && currentEconStatus <= 100) {
-                    newStatus = 1;
-                } else if (currentEconStatus > 10 && currentEconStatus <= 11) {
-                    newStatus = 2;
-                }
-                soundManager.playSound(Parameters.property_crime, newStatus);
+                if (propertyBoxFlag) {
+                    int newStatus = 0;
+                    if (currentPropertyCrimeCount > 40 && currentPropertyCrimeCount <= 100) {
+                        newStatus = 1;
+                    }
+                    else if (currentPropertyCrimeCount > 100) {
+                        newStatus = 2;
+                    }
+                    soundManager.playSound(Parameters.property_crime, newStatus);
             }
 
 

@@ -59,8 +59,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         ImageButton aboutExplore;
         ImageButton aboutCrime;
 
-        static Marker offlineModeMarker = null;
         static boolean offlineModeFlag = false;
+        static Marker offlineModeMarker = null;
         static LatLng offlineMarkerLatLng = null;
         private ArrayList<Marker> currentIcons;
         private ArrayList<Marker> currentData;
