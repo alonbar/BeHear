@@ -8,27 +8,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.mycompany.behear.Manager;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.jar.Manifest;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
 
@@ -106,23 +94,26 @@ public class MapHelper {
     //x = longtitue, y = lateitud
     public Point getCurrentCooredinate() {
 
+        Point defaultPoint = new Point(35.209514, 31.765797);
         if (ContextCompat.checkSelfPermission(this.context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (locationManager==null) {
-                return new Point (-74.005941, 40.712784);
+                return new Point (defaultPoint);
             }
             Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (current == null){
-
-//                return new Point (35.211183, 31.771384);
-                return new Point (35.20999, 31.770876);
+                return new Point (defaultPoint);
             }
             else {
                 Point pnt = new Point(current.getLongitude(), current.getLatitude());
+                //For the initial scenario where someone outside jeruslaem want to use the app - we are taking him to jerusalem
+                if ((MainActivity.offlineModeFlag ==true) && (MainActivity.offlineModeMarker == null) && (Manager.getStatArea(pnt) == null)) {
+                    return defaultPoint;
+                }
                 return pnt;
             }
 
         }
-        return new Point (-74.005941, 40.712784);
+        return new Point (defaultPoint);
     }
 
     public void showCurrentCoordination() {
@@ -178,6 +169,7 @@ public class MapHelper {
             curStatData = stat.getData();
             currentData.add(mMap.addMarker(new MarkerOptions().position(new LatLng(stat.getPolygon().getCenter().getLat(), stat.getPolygon().getCenter().getLong()))
                     .title(curStatData[0] + " " + curStatData[1] + " " + curStatData[2]).icon(BitmapDescriptorFactory.fromResource(R.drawable.sign))));
+            currentData.get(currentData.size() -1 ).setVisible(true);
 
         }
     }

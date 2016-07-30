@@ -44,6 +44,8 @@ public class Manager {
     }
 
     public static void BeHearInit(Context context) {
+        Log.d("init", "inside BeHear Init");
+
         String json = null;
         MainActivity.statAreaTable = new HashMap<>();
 
@@ -155,7 +157,7 @@ public class Manager {
     }
 
 
-    private StatArea getStatArea(Point point) {
+    static public StatArea getStatArea(Point point) {
         if (MainActivity.statAreaTable == null)
             return null;
         for (StatArea curStat : MainActivity.statAreaTable.values()) {

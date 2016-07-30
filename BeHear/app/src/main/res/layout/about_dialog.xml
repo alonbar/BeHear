@@ -70,5 +70,6 @@ android:layout_height="match_parent"
     android:text="@string/develoment6"
     android:id="@+id/app_dev6"
     android:layout_below="@id/app_dev5"
-    android:textAlignment="center"/>
+    android:textAlignment="center"
+    android:layout_marginBottom="15dp"/>
 </RelativeLayout>

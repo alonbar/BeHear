@@ -111,6 +111,9 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
 
                         }
                 });
+                if (StatArea.kalpiList == null){
+                        Manager.BeHearInit(getApplicationContext());
+                }
                 mapHelper = new MapHelper(getApplicationContext());
                 mapHelper.setMarkers(mMap, currentIcons, 15);
                 mapHelper.setData(mMap, currentData);
@@ -191,6 +194,8 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
                                 }
                                 if (offlineModeMarker != null)
                                         offlineModeMarker.setVisible(isChecked);
+                                if (isChecked)
+                                        updateMap(getApplicationContext());
                         }
                 });
 
@@ -360,11 +365,9 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         }
 
         private void setUpMapIfNeeded() {
-                if (mMap != null) {
-                        return;
+                if (mMap == null) {
+                        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
                 }
-                mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-                //To do initialize map properly here
                 if (mMap == null) {
                         return;
                 }

@@ -33,5 +33,5 @@
         android:id="@+id/app_Exp_votes_from"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/app_exp_votes"
-        />
+        android:layout_marginBottom="15dp"/>
 </RelativeLayout>

@@ -30,5 +30,6 @@
         android:id="@+id/app_Exp_socio_from"
 
         android:layout_below="@+id/app_Exp_socio"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"/>
 </RelativeLayout>
