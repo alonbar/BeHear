@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
@@ -68,7 +70,10 @@ public class MainActivity extends FragmentActivity  implements OnMapReadyCallbac
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
+//                Drawable qm = this.getResources().getDrawable(R.drawable.qm);
+//                qm.setColorFilter(Color.parseColor("#27FF88"), PorterDuff.Mode.ADD);
                 setContentView(R.layout.activity_main);
+
                 votesBox = (CheckBox)findViewById(R.id.checkbox_votes);
                 econBox = (CheckBox)findViewById(R.id.checkbox_socio);
                 propertyCrimeBox = (CheckBox)findViewById(R.id.check_box_property_crime);
