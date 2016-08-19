@@ -82,6 +82,7 @@
         android:checked="false"
         android:buttonTint="#ebebe0"
         android:textColor="#ebebe0"
+        android:textStyle="italic"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
@@ -104,7 +105,8 @@
 android:layout_centerHorizontal="true"
         android:checked="false"
         android:buttonTint="#ebebe0"
-        android:textColor="#ebebe0" />
+        android:textColor="#ebebe0"
+        />
     <!--android:buttonTint="@color/common_plus_signin_btn_text_light"-->
     <!--android:textColor="#787373" />-->
 
@@ -137,7 +139,6 @@ android:layout_centerHorizontal="true"
         android:layout_below="@id/map"
         android:layout_marginTop="6dp"
         android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/checkbox_socio"
         android:layout_toEndOf="@+id/checkbox_socio"
         android:layout_toLeftOf="@id/checkbox_votes"/>
 
