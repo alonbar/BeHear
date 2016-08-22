@@ -29,7 +29,7 @@
     <string name="sexual">sexual harassment</string>
     <string name="property">Vandalism</string>
     <string name="app_explanation_explore">Choose \"explore\" in order to navigate in Jerusalem with your finger. This will enable you to place a marker on a chosen area of Jerusalem and hear the data you chose to hear. By Holding and dragging the marker you can hear the changes in the parameters of the area under your finger.</string>
-    <string name = "app_explanation_crime">By pressing here, BeHear will play the property crimes that was reported to the police in the area you are at. The crime rates are translated to sounds of heartbeats and steps: The more property crimes were reported in this area,, the faster the heartbets and the steps heard.</string>
+    <string name = "app_explanation_crime">By pressing here, BeHear will play the property crimes that was reported to the police in the area you are at. The crime rates are translated to sounds of heartbeats and steps: The more property crimes were reported in this area,, the faster the heartbeats and the steps heard.</string>
     <string name = "app_explanation_crime_from">Data is taken from the Information Department, Israel Police.</string>
     <color name = "blue"> #264d73 </color>
 </resources>
