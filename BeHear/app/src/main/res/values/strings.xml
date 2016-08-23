@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BeHear</string>
     <string name="title_activity_maps">Map</string>
-    <string name="socio">Economic</string>
+    <string name="socio">Economics</string>
     <string name="crime">Crime rate</string>
     <string name="edu">showData</string>
     <string name="votes">Politics</string>
@@ -14,11 +14,14 @@
     <string name = "app_explanation4"> To hear the places without actually passing through them, choose "explore" and explore the map with your finger. </string>
     <string name= "app_explanation5"> Ready? Just start moving and BeHear.</string>
     <string name="app_explanation_choice">You can choose to hear these together, or each on alone.</string>
-    <string name="develoment2"> BeHear was developed and implemented thanks to the conjoint effort of </string>
-    <string name="develoment3"> Alon Bar, Tomer Behor, Inbar Tal and Tzeela Kirshenbaum</string>
-    <string name="develoment4"> Under the supervision of Prof. Yair Bartal and Eran Erlich as a final work for the course \"On the Spectrum Between Science, Art and Technology\" (2016) </string>
-    <string name="develoment5"> For suggestions and feedback: </string>
-    <string name="develoment6"> behearapp@gmail.com </string>
+    <string name="about1"> We are: </string>
+    <string name="about2"> Tomer Behor</string>
+    <string name="about3"> Alon Bar </string>
+    <string name="about4"> Inbar Tal </string>
+    <string name="about5"> Tzeela Kirshenbaum </string>
+    <string name="about_thanks"> Thanks to Michael Fink and Tal Mohr! </string>
+    <string name="about_mail1"> For suggestions and feedback: </string>
+    <string name="about_mail2"> behearapp@gmail.com </string>
     <string name="app_explanation_socio">by pressing here, BeHear will sonify the socio-economic status of different areas in jerusalem. This data is sonified through voices of babies: the more the area has a lower socio-economic status, the more the babies cry.</string>
     <string name="app_explanation_socio_from"> Data is taken from the Central Bureau of Statistics of Israel</string>
     <string name="app_explanation_votes"> By pressing here, BeHear will play the votes in the last elections of the different areas by speeches of politicians heading most elected party in this area.</string>
@@ -26,7 +29,7 @@
     <string name="sexual">sexual harassment</string>
     <string name="property">Vandalism</string>
     <string name="app_explanation_explore">Choose \"explore\" in order to navigate in Jerusalem with your finger. This will enable you to place a marker on a chosen area of Jerusalem and hear the data you chose to hear. By Holding and dragging the marker you can hear the changes in the parameters of the area under your finger.</string>
-    <string name = "app_explanation_crime">By pressing here, BeHear will play the property crimes that was reported to the police in the area you are at. The crime rates are translated to sounds of heartbeats and steps: The more property crimes were reported in this area,, the faster the heartbets and the steps heard.</string>
+    <string name = "app_explanation_crime">By pressing here, BeHear will play the property crimes that was reported to the police in the area you are at. The crime rates are translated to sounds of heartbeats and steps: The more property crimes were reported in this area,, the faster the heartbeats and the steps heard.</string>
     <string name = "app_explanation_crime_from">Data is taken from the Information Department, Israel Police.</string>
     <color name = "blue"> #264d73 </color>
 </resources>
