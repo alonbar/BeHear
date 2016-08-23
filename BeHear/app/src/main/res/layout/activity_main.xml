@@ -7,12 +7,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.mycompany.behear.MainActivity"
-    android:background="#035475">
+    android:background="#035475"
+    android:layoutDirection="ltr">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
+        android:layoutDirection="ltr"
         android:id="@+id/bar"
         android:background="#035475">
         <Button
@@ -52,9 +54,10 @@
             android:clickable="true"
             android:textSize="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentTop="true"
+
+             />
 
     </RelativeLayout>
 
@@ -95,14 +98,14 @@
         android:layout_toRightOf="@+id/offlineMode"
         android:layout_below="@+id/votes_qm"
         android:layout_marginTop="15dp"
-        android:layout_alignStart="@id/votes_qm" />
+        android:layout_alignLeft="@id/votes_qm" />
 
     <CheckBox android:id="@+id/checkbox_votes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/votes"
         android:layout_above="@+id/offlineMode"
-android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="true"
         android:checked="false"
         android:buttonTint="#ebebe0"
         android:textColor="#ebebe0"
@@ -139,8 +142,8 @@ android:layout_centerHorizontal="true"
         android:layout_below="@id/map"
         android:layout_marginTop="6dp"
         android:layout_marginLeft="3dp"
-        android:layout_toEndOf="@+id/checkbox_socio"
-        android:layout_toLeftOf="@id/checkbox_votes"/>
+        android:layout_toRightOf="@+id/checkbox_socio"
+        />
 
     <ImageButton
         android:layout_width="wrap_content"
